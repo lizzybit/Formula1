@@ -98,8 +98,16 @@ FROM drivers
 GROUP BY 1
 ORDER BY 2 DESC;
 
-SELECT *
+SELECT nationality
 FROM num_drivers;
+
+-- Looking at nationality of every driver percent
+SELECT 	nationality, 
+		COUNT(nationality) AS number_of_drivers, 
+		ROUND(COUNT(nationality)*100.0/SUM(COUNT(nationality)) OVER(), 2) AS percentage_of_drivers
+FROM drivers
+GROUP BY 1
+ORDER BY 3 DESC;
 
 -- Looking at the number of world champions from each country
 
