@@ -3,7 +3,7 @@
 # 1: Circuits
 CREATE TABLE circuits (
     circuitId integer,
-	circuitRef varchar(255),
+    circuitRef varchar(255),
     name varchar(255),
     location varchar(255),
     country varchar(255),

@@ -6,7 +6,7 @@ FROM results r
 JOIN constructors c
 ON r.constructorId = c.constructorId;
 
--- Exacting column needed and looking at total races entered
+-- Exacting columns needed and looking at total races entered
 SELECT c.name, COUNT(DISTINCT r.raceId) AS total_races
 FROM results r
 JOIN constructors c
@@ -47,7 +47,6 @@ JOIN races r
 ON ds.raceId = r.raceId;
 
 -- Grouping drivers by nationality, year and surname to get the max points achieved every season
-
 SELECT DISTINCT year
 FROM races
 ORDER BY 1 DESC;
@@ -148,6 +147,57 @@ FROM num_champions nc
 JOIN num_drivers nd
 ON nc.nationality = nd.nationality
 ORDER BY 4 DESC;
+
+## Question 3: Does higher altitude cause more engine failures?
+-- Merging circuits, race, results and status data 
+SELECT *
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId;
+
+-- Exacting columns needed, including rows with issues correlated with thin air in higher altitudes, setting the year to last 7 to include Mexico GP
+SELECT 
+	c.circuitId, 
+    c.circuitRef, 
+    c.name, 
+    c.location, 
+    c.country, 
+    c.lat, 
+    c.lng, 
+    c.alt, 
+    r.raceId, 
+    r.year,
+    s.statusId,
+    s.status
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7);
+
+-- Looking at the total failures and the altitude of the track they occurred on
+SELECT c.name, c.alt, COUNT(s.statusId) AS failures
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7)
+GROUP BY 1,2
+ORDER BY 3 DESC;
+    
+    
+    
+
 
 
 
