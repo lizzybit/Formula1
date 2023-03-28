@@ -1,16 +1,16 @@
-nationality,number_of_champions,number_of_drivers
-British,20,165
-American,2,158
-Italian,3,99
-French,5,73
-German,12,50
-Brazilian,8,32
-Argentine,5,24
-"South African",1,23
-Australian,4,18
-Dutch,2,18
-Austrian,4,15
-Spanish,2,15
-Canadian,1,14
-Finnish,4,9
-"New Zealander",1,9
+nationality,number_of_champions,number_of_drivers,win_percent
+Finnish,4,9,44.44
+Austrian,4,15,26.67
+Brazilian,8,32,25.00
+German,12,50,24.00
+Australian,4,18,22.22
+Argentine,5,24,20.83
+Spanish,2,15,13.33
+British,20,165,12.12
+Dutch,2,18,11.11
+"New Zealander",1,9,11.11
+Canadian,1,14,7.14
+French,5,73,6.85
+"South African",1,23,4.35
+Italian,3,99,3.03
+American,2,158,1.27
