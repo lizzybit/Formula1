@@ -22,13 +22,15 @@ ON r.constructorId = c.constructorId
 GROUP BY 1
 ORDER BY 2 DESC;
 
--- Calculating average points of constructors per race
+-- Calculating average points of the top 10 constructors with the most points per race who have entered at least 100 races
 SELECT c.name, (SUM(r.points)/COUNT(DISTINCT r.raceId)) AS points_per_race
 FROM results r
 JOIN constructors c
 ON r.constructorId = c.constructorId
 GROUP BY 1
-ORDER BY 2 DESC;
+HAVING COUNT(DISTINCT r.raceId) >=100
+ORDER BY 2 DESC
+LIMIT 10;
 
 ## Question 2: Which drivers are the most successful ##
 
@@ -47,10 +49,6 @@ JOIN races r
 ON ds.raceId = r.raceId;
 
 -- Grouping drivers by nationality, year and surname to get the max points achieved every season
-SELECT DISTINCT year
-FROM races
-ORDER BY 1 DESC;
-
 SELECT d.surname, d.nationality, r.year, MAX(ds.points) AS total_points, MAX(ds.wins) AS total_wins
 FROM drivers d
 JOIN driver_standings ds
@@ -98,7 +96,7 @@ FROM drivers
 GROUP BY 1
 ORDER BY 2 DESC;
 
-SELECT nationality
+SELECT *
 FROM num_drivers;
 
 -- Looking at nationality of every driver percent
@@ -110,7 +108,6 @@ GROUP BY 1
 ORDER BY 3 DESC;
 
 -- Looking at the number of world champions from each country
-
 CREATE TEMPORARY TABLE num_champions (
 	nationality varchar(255),
     number_of_champions integer
@@ -202,8 +199,34 @@ ON s.statusId = re.statusId
 WHERE r.year >=2015 AND s.statusId IN (5, 7)
 GROUP BY 1,2
 ORDER BY 3 DESC;
-    
-    
+
+## Question 4: Who has the fastest lap time in every circuit?
+-- Merging and extraction of important columns from different tables
+SELECT * 
+FROM circuits c
+JOIN races r
+ON c.circuitId = r.circuitId
+JOIN results re
+ON r.raceId = re.raceId
+JOIN drivers d
+ON re.driverId = d.driverId;
+
+WITH fast AS (
+SELECT c.name, c.country, d.surname, d.nationality, re.fastestLapTime, r.year
+FROM circuits c
+JOIN races r
+ON c.circuitId = r.circuitId
+JOIN results re
+ON r.raceId = re.raceId
+JOIN drivers d
+ON re.driverId = d.driverId
+WHERE re.fastestLapTime IS NOT NULL
+GROUP BY 1,2,3,4,6
+ORDER BY 1
+)
+SELECT c.name, c.country, d.surname, d.nationality, r.year, re.fastestLapTime
+FROM fast
+ORDER BY 2;
     
 
 

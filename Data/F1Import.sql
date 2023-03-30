@@ -196,7 +196,7 @@ SELECT *
 FROM constructor_results;
 
 # 12: Results
-
+drop table results;
 CREATE TABLE results (
 	resultsId integer,
     raceId integer,
@@ -213,12 +213,12 @@ CREATE TABLE results (
     milliseconds integer,
     fastestLap integer,
     ranks integer,
-    fastestLapTime time,
+    fastestLapTime varchar(255),
     fastestSpeed integer,
     statusId integer
     );
     
-LOAD DATA LOCAL INFILE '/Users/elizabeth/Documents/GitHub/Formula 1/Data/Cleaned/results.csv'
+LOAD DATA LOCAL INFILE '/Users/elizabeth/Documents/GitHub/Formula1/Data/Cleaned/results.csv'
 INTO TABLE results
 FIELDS TERMINATED BY ','
 IGNORE 1 ROWS;
