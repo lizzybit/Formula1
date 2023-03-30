@@ -211,22 +211,69 @@ ON r.raceId = re.raceId
 JOIN drivers d
 ON re.driverId = d.driverId;
 
-WITH fast AS (
-SELECT c.name, c.country, d.surname, d.nationality, re.fastestLapTime, r.year
-FROM circuits c
-JOIN races r
-ON c.circuitId = r.circuitId
-JOIN results re
-ON r.raceId = re.raceId
-JOIN drivers d
-ON re.driverId = d.driverId
-WHERE re.fastestLapTime IS NOT NULL
-GROUP BY 1,2,3,4,6
-ORDER BY 1
+-- Looking at the track record for each track
+WITH lap_records AS (
+    SELECT c.circuitId, MIN(re.fastestLapTime) AS lap_record
+    FROM circuits c
+    JOIN races r ON c.circuitId = r.circuitId
+    JOIN results re ON r.raceId = re.raceId
+    WHERE re.fastestLapTime IS NOT NULL AND re.fastestLapTime <> 0 
+    GROUP BY c.circuitId
 )
-SELECT c.name, c.country, d.surname, d.nationality, r.year, re.fastestLapTime
-FROM fast
+SELECT c.name, c.country, d.surname, lr.lap_record, r.year
+FROM circuits c
+JOIN races r ON c.circuitId = r.circuitId
+JOIN results re ON r.raceId = re.raceId
+JOIN drivers d ON re.driverId = d.driverId
+JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
 ORDER BY 2;
+
+WITH lap_records AS (
+    SELECT c.circuitId, MIN(re.fastestLapTime) AS lap_record
+    FROM circuits c
+    JOIN races r ON c.circuitId = r.circuitId
+    JOIN results re ON r.raceId = re.raceId
+    WHERE re.fastestLapTime IS NOT NULL AND re.fastestLapTime <> 0 
+    GROUP BY c.circuitId)
+SELECT d.surname, COUNT(d.surname)
+FROM circuits c
+JOIN races r ON c.circuitId = r.circuitId
+JOIN results re ON r.raceId = re.raceId
+JOIN drivers d ON re.driverId = d.driverId
+JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
+GROUP BY 1
+ORDER BY 2 DESC;
+
+## Question 5: Which drivers has the most wins in a single season?
+-- Merging driver data, their standings and race data
+SELECT *
+FROM drivers d
+JOIN driver_standings ds 
+	ON d.driverId = ds.driverId
+JOIN races r
+	ON ds.raceId = r.raceId;
+    
+-- Exacting columns needed and filtering the dataset to include the max wins every year
+SELECT DISTINCT d.surname, r.year, ds.wins
+FROM drivers d
+JOIN driver_standings ds 
+	ON d.driverId = ds.driverId
+JOIN races r
+	ON ds.raceId = r.raceId
+WHERE (r.year, ds.wins) IN (
+	SELECT r.year, MAX(ds.wins)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1) AND ds.wins <> 0
+ORDER BY 3 DESC;
+
+## Question 6: What was the most competitive season by points difference?
+
+
+
     
 
 

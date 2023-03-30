@@ -213,7 +213,7 @@ CREATE TABLE results (
     milliseconds integer,
     fastestLap integer,
     ranks integer,
-    fastestLapTime varchar(255),
+    fastestLapTime decimal(10,3),
     fastestSpeed integer,
     statusId integer
     );
