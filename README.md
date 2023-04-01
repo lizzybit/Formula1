@@ -251,7 +251,6 @@ SELECT *
 FROM constructor_results;
 
 # 12: Results
-drop table results;
 CREATE TABLE results (
 	resultsId integer,
     raceId integer,
@@ -311,7 +310,7 @@ JOIN constructors c
 ON r.constructorId = c.constructorId;
 ```
 ### 6.1 Find the Constructor Who Has Entered the Most Races
-Exact columns needed to find total races entered
+Exact columns needed to find total races entered by constructors:
 ``` sql
 SELECT c.name, COUNT(DISTINCT r.raceId) AS total_races
 FROM results r
@@ -321,7 +320,7 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
-#### Result of query
+#### -- Result of query
 
 | name       | total_races |
 |------------|-------------|
@@ -336,14 +335,16 @@ LIMIT 10;
 | Minardi    | 345         |
 | Ligier     | 330         |
 
-From the table it is clear that Ferrari is the team with the most races entered, with a total of 1054 races.
-
-#### Visualization of Data
+#### -- Visualization of Data
 <p align = "center">
 <img src="https://user-images.githubusercontent.com/128324837/229288014-8c27c80c-86b1-451e-92ef-a075a7e1221d.png" width=50% height=50%> </p>
 
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and barchart show the number of races entered by the top 10 constructor teams in Formula 1 history. Ferrari is the most successful constructor with a total of 1054 races entered, followed by McLaren with 883 races and Williams with 797 races. Tyrrell, Renault, Sauber, and Team Lotus have all entered over 300 races, while Red Bull, Minardi, and Ligier complete the top 10 with over 300 races entered as well. This table provides insight into the longevity and success of these teams in the history of Formula 1.</p>
+
 ### 6.2 Find the Constructor Who Has Earn the Most Points in F1 History
-Exact columns needed to find total points
+Exact columns needed to find total points earned by constructors:
 ``` sql
 SELECT c.name, SUM(r.points) AS total_points
 FROM results r
@@ -353,7 +354,7 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
-#### Result of Query
+#### -- Result of Query
 | name        | total_points |
 |-------------|--------------|
 | Ferrari     | 10138        |
@@ -367,11 +368,15 @@ LIMIT 10;
 | Benetton    | 862          |
 | Tyrrell     | 711          |
 
-From the table it is clear that Ferrari is the team that has earned the most points in the history of F1, with 10138.  Mercedes is seconds with 6924 points, which is very impressive since the team was only founded in 2010.
-
-#### Visualization of Data
+#### -- Visualization of Data
 <p align = "center">
 <img src="https://user-images.githubusercontent.com/128324837/229288803-536288a7-f0d3-4cf9-9bf8-f3cc7ab6272d.png" width=50% height=50%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The above table and barchart show the total points earned by different Formula 1 constructor teams throughout their history in the sport. Points are awarded based on a team's performance in each race, with the team scoring the most points at the end of the season being declared the Constructors' Champion. From the table it is clear that Ferrari is the team that has earned the most points in the history of F1, with 10138.  Mercedes is seconds with 6924 points.</p>
+<p align = "justify">
+It is impressive that Mercedes is so high on the list because they have only been competing as a works team in Formula 1 since 2010, but in that time they have become one of the most dominant teams in the sport's history. They have won the Constructors' Championship in every season from 2014 to 2021. This sustained period of success has allowed them to accumulate a significant number of points in a relatively short period of time, which is reflected in their high ranking on this table.</p>
 
 ### 6.3 Find the Highest Average Points Earned Per Case by Constructors Who Have Entered at Least 100 Races
 
@@ -385,12 +390,113 @@ HAVING COUNT(DISTINCT r.raceId) >=100
 ORDER BY 2 DESC
 LIMIT 10;
 ```
+#### -- Result of Query
+| name        | points_per_race |
+|-------------|-----------------|
+| Mercedes    | 25.55           |
+| Red Bull    | 18.24           |
+| Ferrari     | 9.62            |
+| McLaren     | 6.96            |
+| Force India | 5.18            |
+| Williams    | 4.52            |
+| Renault     | 4.41            |
+| Benetton    | 3.32            |
+| BRM         | 2.59            |
+| Team Lotus  | 2.52            |
 
+From the table it is clear that on average Mercedes scores the most amount of points per race at 25.55. From this table and the following visualization, it is clear why Mercedes are the team with the second most points every, even after being in the sport for only a relatively short time.
 
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229291997-5432ecc2-951f-4555-a5e9-e7a02d18555e.png" width=50% height=50%> </p>
 
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and barchart show the average points per race for each Formula One team. It is impressive to see that Mercedes tops the list with a points per race average of 25.55, which is more than double the second-place team, Red Bull, with 18.24. This indicates that Mercedes has been consistently successful in scoring points across races.</p>
+<p align = "justify">
+It's interesting to note that the former Force India team, now racing as Aston Martin, has a higher points per race average than Williams and Renault, despite not having as long of a history in the sport. Overall, the table indicates the dominance of Mercedes in recent years, as well as the consistency and success of Red Bull and Ferrari.</p>
 
+## 7. Analyzing Data to Find the Most Successful Drivers
+Join results table and drivers table:
+``` sql
+SELECT *
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId;
+```
 
+### 7.1 Find the Driver Who Has Entered the Most Races
 
+Exact columns needed to find total races entered by drivers:
+``` sql
+SELECT d.surname, COUNT(DISTINCT r.raceId) AS total_races
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| surname     | total_races |
+|-------------|-------------|
+| Schumacher  | 375         |
+| Alonso      | 358         |
+| Räikkönen   | 352         |
+| Rosberg     | 334         |
+| Barrichello | 326         |
+| Hamilton    | 315         |
+| Button      | 309         |
+| Hill        | 303         |
+| Vettel      | 300         |
+| Massa       | 271         |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229294013-22cdb9b4-ae45-48a3-a195-853a5e574c05.png" width=50% height=50%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and barchart show the top 10 drivers with the highest number of total races in Formula 1. At the top of the list is Michael Schumacher with 375 races, followed closely by Fernando Alonso with 358 races and Kimi Räikkönen with 352 races.</p>
+<p align = "justify">
+It's worth noting that despite their impressive number of races, some of these drivers have not won a world championship. For example, Barrichello has the highest number of races (326) without ever winning a championship. Button also raced in 309 Grand Prix races, but only managed to win one championship. Hill, who comes in at number eight on the list, won one championship in his 303 race career.</p>
+<p align = "justify">
+Overall, this table highlights the longevity and consistency of some of the most successful drivers in Formula 1 history.</p>
+
+### 7.2 Find the Driver Who Has Earn the Most Points in F1 History
+Exact columns needed to find total points earned by drivers:
+``` sql
+SELECT d.surname, SUM(r.points) AS total_points
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| surname    | total_points |
+|------------|--------------|
+| Hamilton   | 4397         |
+| Vettel     | 3098         |
+| Alonso     | 2061         |
+| Verstappen | 2001         |
+| Schumacher | 1907         |
+| Räikkönen  | 1873         |
+| Bottas     | 1778         |
+| Rosberg    | 1755         |
+| Ricciardo  | 1307         |
+| Button     | 1235         |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229294669-1f405ca0-25eb-4ffc-8bc4-6250bd6b50a8.png" width=50% height=50%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and bar chart show the total points earned by the top 10 Formula 1 drivers of all time. It is important to note that the points system in Formula 1 has changed over the years, so it is not entirely fair to compare the points earned by drivers from different eras. However, it is clear from the table that Lewis Hamilton is the most successful driver in terms of total points earned, with a staggering 4397 points to his name.</p>
+<p align = "justify">
+It is interesting to note that the points per race have increased over the years due to various rule changes, including the introduction of double points for the final race of the season in 2014. This means that drivers who have raced in more recent seasons have had more opportunities to earn points, and as a result, they may appear higher on this list than drivers from earlier eras.</p>
 
 
 
