@@ -51,10 +51,9 @@ The dataset includes:
 13. **status.csv:** This file contains information about the status codes that can be assigned to a driver's car during a race.
 
 ## 5. Import the Data to SQL
-The next step into import the data into mySQL
+The next is step is to create tables and import the data into mySQL
 
 ```sql 
--- Create tables and import data
 
 # 1: Circuits
 CREATE TABLE circuits (
@@ -303,7 +302,7 @@ IGNORE 1 ROWS;
 SELECT *
 FROM qualifying;
 ```
-## . Analyzing Data to Find the Most Successful Constructors
+## 6. Analyzing Data to Find the Most Successful Constructors
 Join results table and constructors table:
 ``` sql
 SELECT *
@@ -311,7 +310,7 @@ FROM results r
 JOIN constructors c
 ON r.constructorId = c.constructorId;
 ```
-### Find the Constructor Who Has Entered the Most Races
+### 6.1 Find the Constructor Who Has Entered the Most Races
 Exact columns needed to find total races entered
 ``` sql
 SELECT c.name, COUNT(DISTINCT r.raceId) AS total_races
@@ -322,7 +321,7 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
-Result
+#### Result of query
 
 | name       | total_races |
 |------------|-------------|
@@ -339,7 +338,11 @@ Result
 
 From the table it is clear that Ferrari is the team with the most races entered, with a total of 1054 races.
 
-### Find the Constructor Who Has Earn the Most Points in F1 History
+#### Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229288014-8c27c80c-86b1-451e-92ef-a075a7e1221d.png" width=50% height=50%> </p>
+
+### 6.2 Find the Constructor Who Has Earn the Most Points in F1 History
 Exact columns needed to find total points
 ``` sql
 SELECT c.name, SUM(r.points) AS total_points
@@ -350,7 +353,7 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
-Result
+#### Result of Query
 | name        | total_points |
 |-------------|--------------|
 | Ferrari     | 10138        |
@@ -365,6 +368,31 @@ Result
 | Tyrrell     | 711          |
 
 From the table it is clear that Ferrari is the team that has earned the most points in the history of F1, with 10138.  Mercedes is seconds with 6924 points, which is very impressive since the team was only founded in 2010.
+
+#### Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229288803-536288a7-f0d3-4cf9-9bf8-f3cc7ab6272d.png" width=50% height=50%> </p>
+
+### 6.3 Find the Highest Average Points Earned Per Case by Constructors Who Have Entered at Least 100 Races
+
+``` sql
+SELECT c.name, ROUND(SUM(r.points)/COUNT(DISTINCT r.raceId),2) AS points_per_race
+FROM results r
+JOIN constructors c
+ON r.constructorId = c.constructorId
+GROUP BY 1
+HAVING COUNT(DISTINCT r.raceId) >=100
+ORDER BY 2 DESC
+LIMIT 10;
+```
+
+
+
+
+
+
+
+
 
 ### Methods Implemented 
 This project contains implementations of scientific methods such as: 
