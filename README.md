@@ -4,6 +4,34 @@
 
 # Formula 1 Data Exploration
 
+
+## Table of Contents
+- [1. Background and Motivation](#1-background-and-motivation)
+- [2. Research Questions](#2-research-questions)
+- [3. Data Retrieval and Standard Descriptive Analysis](#3-data-retrieval-and-standard-descriptive-analysis)
+- [4. Clean the Data in Excel](#4-clean-the-data-in-excel)
+- [5. Import the Data to SQL](#5-import-the-data-to-sql)
+- [6. Analyzing Data to Find the Most Successful Constructors](#6-analyzing-data-to-find-the-most-successful-constructors)
+  * [6.1 Find the Constructor Who Has Entered the Most Races](#61-find-the-constructor-who-has-entered-the-most-races)
+  * [6.2 Find the Constructor Who Has Earn the Most Points in F1 History](#62-find-the-constructor-who-has-earn-the-most-points-in-f1-history)
+  * [6.3 Find the Highest Average Points Earned Per Race by Constructors Who Have Entered at Least 100 Races](#63-find-the-highest-average-points-earned-per-race-by-constructors-who-have-entered-at-least-100-races)
+- [7. Analyzing Data to Find the Most Successful Drivers](#7-analyzing-data-to-find-the-most-successful-drivers)
+  * [7.1 Find the Driver Who Has Entered the Most Races](#71-find-the-driver-who-has-entered-the-most-races)
+  * [7.2 Find the Driver Who Has Earn the Most Points in F1 History](#72-find-the-driver-who-has-earn-the-most-points-in-f1-history)
+  * [7.3 Find the Highest Average Points Earned Per Race by Drivers Who Have Entered at Least 50 Races](#73-find-the-highest-average-points-earned-per-race-by-drivers-who-have-entered-at-least-50-races)
+  * [7.4 Find the Driver Who has Won the Most World Championships](#74-find-the-driver-who-has-won-the-most-world-championships)
+- [8. Analyzing Data to Find the Most Successful Countries in Terms of Formula 1 World Champions](#8-analyzing-data-to-find-the-most-successful-countries-in-terms-of-formula-1-world-champions)
+  * [8.1 Find the Countries with the Highest Number and Percentage of Drivers](#81-find-the-countries-with-the-highest-number-and-percentage-of-drivers)
+  * [8.2 Find the Countries with the Highest Number and Percentage of Champions](#82-find-the-countries-with-the-highest-number-and-percentage-of-champions)
+- [8. Analyzing Data to Find the Track Record for Each Circuit and Which Driver Has the Most Fastest Laps](#8-analyzing-data-to-find-the-track-record-for-each-circuit-and-which-driver-has-the-most-fastest-laps)
+  * [8.1 Find the Track Record for Each Circuit](#81-find-the-track-record-for-each-circuit)
+  * [8.2 Find the Driver with the Most Fastest Laps](#82-find-the-driver-with-the-most-fastest-laps)
+- [9. Analyzing Data to Find Determine if Higher Altitude Cause More Engine Failures](#9-analyzing-data-to-find-determine-if-higher-altitude-cause-more-engine-failures)
+  * [9.1 Find the Total Failures and Altitudes for Various Circuits](#91-find-the-total-failures-and-altitudes-for-various-circuits)
+- [10. Tableau Dashboards](#10-tableau-dashboards)
+- [11. Summary and Conclusion](#11-summary-and-conclusion)
+
+
 ## 1. Background and Motivation
 <p align = "justify"> Formula One (F1) is one of the most exciting and high-profile sports in the world, with a global fan base of millions. The sport's popularity is fueled by its high-speed, adrenaline-fueled action, as well as its history and prestige. F1 racing involves cutting-edge technology, precision engineering, and world-class drivers, all of which come together to create a thrilling and unpredictable spectacle. 
     </p>
@@ -29,7 +57,7 @@ I have chosen the following reseach questions to focus on in this project:
 4. What is the track record for each circuits and who set that record?
 5. Does higher altitude cause more engine failures in Formula 1 races?
 
-## 3. Dataset: Data Retrieval and Standard Descriptive Analysis
+## 3. Data Retrieval and Standard Descriptive Analysis
 
 The dataset used in the project is available at: [https://www.kaggle.com/cjgdev/formula-1-race-data-19502017](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
 
@@ -897,7 +925,7 @@ The table lists the surnames of Formula One drivers who have achieved the fastes
 It is important to note that some of the circuits listed in the table are no longer in use, such as the Circuit de Nevers Magny-Cours in France and the Indianapolis Motor Speedway in the USA. This is why older drivers have achieved some of the fastest laps is not necessarily because they were better drivers, but because they had the opportunity to set those times on tracks that are no longer used in Formula One or have undergone significant changes over the years.</p>
 	
 
-## 9. Analyzing Data to Find Determine if Higher Altitude Cause More Engine Failures?
+## 9. Analyzing Data to Find Determine if Higher Altitude Cause More Engine Failures
 <p align = "justify">
 At higher altitudes, air is less dense, which means that less air flows through the radiators and intake valves to cool the engine and brakes. Additionally, engines require oxygen to ignite combustion, and a lack of it can cause a decrease in performance. The main indicators of such conditions are overheating of transmission and engine components. The Autódromo Hermanos Rodríguez, where the Mexican GP takes place, is located at an elevation of 2227 meters above sea level, making it significantly higher than any other track on the F1 calendar. </p>
 
