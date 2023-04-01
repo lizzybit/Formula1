@@ -795,14 +795,14 @@ ORDER BY 2;
 | Red Bull Ring                        | Austria      | Sainz         | 65.619     | 2020 |
 | Baku City Circuit                    | Azerbaijan   | Leclerc       | 103.009    | 2019 |
 | Bahrain International Circuit        | Bahrain      | Russell       | 55.404     | 2020 |
-| Circuit de Spa-Francorchamps         | Belgium      | R√§ikk√∂nen   | 105.108    | 2004 |
+| Circuit de Spa-Francorchamps         | Belgium      | Räikkönen     | 105.108    | 2004 |
 | Autodromo Jose Carlos Pace           | Brazil       | Bottas        | 70.54      | 2018 |
 | Circuit Gilles Villeneuve            | Canada       | Bottas        | 73.078     | 2019 |
 | Shanghai International Circuit       | China        | Schumacher    | 92.238     | 2004 |
 | Circuit de Nevers Magny-Cours        | France       | Schumacher    | 75.377     | 2004 |
 | Circuit Paul Ricard                  | France       | Vettel        | 92.74      | 2019 |
 | Nurburgring                          | Germany      | Verstappen    | 88.139     | 2020 |
-| Hockenheimring                       | Germany      | R√§ikk√∂nen   | 73.78      | 2004 |
+| Hockenheimring                       | Germany      | Räikkönen     | 73.78      | 2004 |
 | Hungaroring                          | Hungary      | Hamilton      | 76.627     | 2020 |
 | Buddh International Circuit          | India        | Vettel        | 87.249     | 2011 |
 | Autodromo Internazionale del Mugello | Italy        | Hamilton      | 78.833     | 2020 |
@@ -829,15 +829,57 @@ ORDER BY 2;
 | Indianapolis Motor Speedway          | USA          | Barrichello   | 70.399     | 2004 |
 | Circuit of the Americas              | USA          | Leclerc       | 96.169     | 2019 |
 
+
+#### -- Discussion of Data and Results
+<p align = "justify"> 
+The table provides a list of various Grand Prix circuits from around the world along with the lap records and the names of the drivers who set them. The slowest lap time is the highest lap record time in the table, which is 103.009 seconds set by Charles Leclerc at the Baku City Circuit in Azerbaijan in 2019. The fastest lap time is the lowest lap record time in the table, which is 55.404 seconds set by George Russell at the Bahrain International Circuit in Bahrain in 2020.</p>
+
+### 8.2 Find the Driver with the Most Fastest Laps
+``` sql
+WITH lap_records AS (
+    SELECT c.circuitId, MIN(re.fastestLapTime) AS lap_record
+    FROM circuits c
+    JOIN races r ON c.circuitId = r.circuitId
+    JOIN results re ON r.raceId = re.raceId
+    WHERE re.fastestLapTime IS NOT NULL AND re.fastestLapTime <> 0 
+    GROUP BY c.circuitId)
+SELECT d.surname, COUNT(d.surname) AS fastest_laps
+FROM circuits c
+JOIN races r ON c.circuitId = r.circuitId
+JOIN results re ON r.raceId = re.raceId
+JOIN drivers d ON re.driverId = d.driverId
+JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+#### -- Result of Query
+| surname       | fastest_laps |
+|---------------|--------------|
+| Hamilton      | 9            |
+| Verstappen    | 4            |
+| Vettel        | 4            |
+| Leclerc       | 3            |
+| Schumacher    | 3            |
+| Bottas        | 3            |
+| Räikkönen     | 2            |
+| Barrichello   | 2            |
+| Magnussen     | 1            |
+| Sainz         | 1            |
+| Glock         | 1            |
+| Fisichella    | 1            |
+| Massa         | 1            |
+| Russell       | 1            |
+| Pablo Montoya | 1            |
+
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229307757-260816cb-c091-4bec-afe2-ca6882b4ec0b.png" width=60% height=60%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229309167-3b5f0cfc-c7c6-4739-ade8-9d884eb13ead.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
-	
-	
-	
+The table lists the surnames of Formula One drivers who have achieved the fastest lap times at various circuits around the world, along with the number of fastest laps achieved by each driver. The table shows that Hamilton has the most number of fastest laps at 9, followed by Verstappen and Vettel at 4 each.</p>
+<p align = "justify">
+It is important to note that some of the circuits listed in the table are no longer in use, such as the Circuit de Nevers Magny-Cours in France and the Indianapolis Motor Speedway in the USA. This is why older drivers have achieved some of the fastest laps is not necessarily because they were better drivers, but because they had the opportunity to set those times on tracks that are no longer used in Formula One or have undergone significant changes over the years.</p>
 	
 	
 	
