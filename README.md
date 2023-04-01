@@ -4,7 +4,7 @@
 
 # Formula 1 Data Exploration
 
-## 1.Background and Motivation
+## 1. Background and Motivation
 <p align = "justify"> Formula One (F1) is one of the most exciting and high-profile sports in the world, with a global fan base of millions. The sport's popularity is fueled by its high-speed, adrenaline-fueled action, as well as its history and prestige. F1 racing involves cutting-edge technology, precision engineering, and world-class drivers, all of which come together to create a thrilling and unpredictable spectacle. 
     </p>
   
