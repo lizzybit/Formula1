@@ -536,7 +536,7 @@ It is notable that Lewis Hamilton has the highest average points per race among 
 Interestingly, some of the greatest drivers in Formula 1 history, such as Alain Prost and Ayrton Senna, do not appear in the top 10 in terms of points per race. This is likely because they competed in an era where fewer points were awarded for each race, and there were fewer races overall in the season. It also highlights the importance of context when interpreting statistics in Formula 1.</p>
 
 ### 7.4 Find the Driver Who has Won the Most World Championships
-Group drivers by nationality, year and surname to get the max points achieved every season
+Group drivers by nationality, year and surname to get the max points achieved every season:
 ``` sql
 SELECT d.surname, d.nationality, r.year, MAX(ds.points) AS total_points, MAX(ds.wins) AS total_wins
 FROM drivers d
@@ -547,7 +547,7 @@ ON ds.raceId = r.raceId
 GROUP BY 1,2,3
 ORDER BY 4 DESC;
 ```
-Use the the max points achieved every season to find the world champion for every year
+Use the the max points achieved every season to find the world champion for every year:
 ``` sql
 SELECT DISTINCT r.year, d.nationality, d.surname, ds.points
 FROM drivers d
@@ -567,7 +567,7 @@ WHERE (r.year, ds.points) IN (
 AND ds.points <> 0 
 ORDER BY 1 DESC;
 ```
-Find the drivers with the most world championships
+Find the drivers with the most world championships:
 ``` sql
 SELECT d.surname, COUNT(DISTINCT r.year) AS total_championships
 FROM drivers d
@@ -613,9 +613,112 @@ This table and chart show the total number of world championships won by the top
 <p align = "justify">
 The fact that Michael Schumacher and Lewis Hamilton are tied for the most championships at 7 each is particularly impressive, as it demonstrates their exceptional talent and longevity in the sport. Both drivers have dominated their respective eras and set numerous records, cementing their status as two of the greatest drivers in the history of Formula One.</p>
 
+## 8. Analyzing Data to Find the Most Successful Countries in Terms of Formula 1 World Champions
+### 8.1 Find the Countries with the Highest Number and Percentage of Drivers
 
+Extract data from drivers and create smaller temporary with the columns needed:
+``` sql
+CREATE TEMPORARY TABLE num_drivers (
+	nationality varchar(255),
+    number_of_drivers integer
+    );
 
+INSERT INTO num_drivers
+SELECT nationality, COUNT(nationality) AS number_of_drivers
+FROM drivers
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+Find the number of drivers from each country:
+``` sql
+SELECT *
+FROM num_drivers;
+```
+Calculate the number and percentage of drivers in the database grouped by nationality:
+``` sql
+SELECT 	nationality, 
+	COUNT(nationality) AS number_of_drivers, 
+	ROUND(COUNT(nationality) * 100.0/SUM(COUNT(nationality)) OVER(), 2) AS percentage_of_drivers
+FROM drivers
+GROUP BY 1
+ORDER BY 3 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| nationality       | number_of_drivers | percentage_of_drivers |
+|-------------------|-------------------|-----------------------|
+| British           | 165               | 19.25                 |
+| American          | 158               | 18.44                 |
+| Italian           | 99                | 11.55                 |
+| French            | 73                | 8.52                  |
+| German            | 50                | 5.83                  |
+| Brazilian         | 32                | 3.73                  |
+| Argentine         | 24                | 2.8                   |
+| South African     | 23                | 2.68                  |
+| Swiss             | 23                | 2.68                  |
+| Belgian           | 23                | 2.68                  |
 
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229303610-bc92f1a3-9e5a-4b7a-a37a-7b7ac8c413fa.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+From the table, we can see that British and American drivers make up the two largest groups of drivers, with British drivers having the highest percentage at 19.25%. Italian, French, and German drivers also make up a significant portion of the dataset, with Brazilian, Argentine, South African, Swiss, and Belgian drivers making up smaller percentages.</p>
+
+### 8.2 Find the Countries with the Highest Number and Percentage of Champions
+Extract data from drivers and create smaller temporary with the columns needed:
+``` sql
+CREATE TEMPORARY TABLE num_champions (
+	nationality varchar(255),
+    number_of_champions integer
+    );
+    
+INSERT INTO num_champions
+WITH champions AS (
+SELECT DISTINCT r.year, d.nationality, d.surname, ds.points
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+WHERE (r.year, ds.points) IN (
+	SELECT r.year, MAX(ds.points)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1
+)
+AND ds.points <> 0
+ORDER BY 1 DESC
+)
+SELECT nationality, COUNT(nationality) AS number_of_champions
+FROM champions
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+Find the number of world champions from each country:
+``` sql
+SELECT *
+FROM num_champions;
+```
+Combine tables to find the total drivers and total world champions for each country:
+``` sql
+SELECT nc.nationality, nc.number_of_champions, nd.number_of_drivers
+FROM num_champions nc
+JOIN num_drivers nd
+ON nc.nationality = nd.nationality;
+```
+Calculate the ratio of drivers to world champions for each country:
+``` sql
+SELECT DISTINCT nc.nationality, nc.number_of_champions, nd.number_of_drivers, ROUND(nc.number_of_champions/nd.number_of_drivers*100, 2) AS win_percent
+FROM num_champions nc
+JOIN num_drivers nd
+ON nc.nationality = nd.nationality
+ORDER BY 4 DESC;
+```
 
 
 
