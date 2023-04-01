@@ -378,8 +378,7 @@ The above table and barchart show the total points earned by different Formula 1
 <p align = "justify">
 It is impressive that Mercedes is so high on the list because they have only been competing as a works team in Formula 1 since 2010, but in that time they have become one of the most dominant teams in the sport's history. They have won the Constructors' Championship in every season from 2014 to 2021. This sustained period of success has allowed them to accumulate a significant number of points in a relatively short period of time, which is reflected in their high ranking on this table.</p>
 
-### 6.3 Find the Highest Average Points Earned Per Case by Constructors Who Have Entered at Least 100 Races
-
+### 6.3 Find the Highest Average Points Earned Per Race by Constructors Who Have Entered at Least 100 Races
 ``` sql
 SELECT c.name, ROUND(SUM(r.points)/COUNT(DISTINCT r.raceId),2) AS points_per_race
 FROM results r
@@ -497,6 +496,51 @@ LIMIT 10;
 The table and bar chart show the total points earned by the top 10 Formula 1 drivers of all time. It is important to note that the points system in Formula 1 has changed over the years, so it is not entirely fair to compare the points earned by drivers from different eras. However, it is clear from the table that Lewis Hamilton is the most successful driver in terms of total points earned, with a staggering 4397 points to his name.</p>
 <p align = "justify">
 It is interesting to note that the points per race have increased over the years due to various rule changes, including the introduction of double points for the final race of the season in 2014. This means that drivers who have raced in more recent seasons have had more opportunities to earn points, and as a result, they may appear higher on this list than drivers from earlier eras.</p>
+
+### 6.3 Find the Highest Average Points Earned Per Race by Drivers Who Have Entered at Least 50 Races
+``` sql
+SELECT d.surname, ROUND(SUM(r.points)/COUNT(DISTINCT r.raceId),2) AS points_per_race
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId
+GROUP BY 1
+HAVING COUNT(DISTINCT r.raceId) >=50
+ORDER BY 2 DESC
+LIMIT 10;
+```
+
+#### -- Result of Query
+| surname     | points_per_race |
+|-------------|-----------------|
+| Hamilton    | 13.96           |
+| Vettel      | 10.33           |
+| Bottas      | 8.85            |
+| Leclerc     | 8.26            |
+| Verstappen  | 7.41            |
+| Alonso      | 5.76            |
+| Ricciardo   | 5.63            |
+| Fangio      | 5.49            |
+| Räikkönen   | 5.32            |
+| Rosberg     | 5.25            |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229296101-6da6ef8c-a10a-4cab-9a20-6451507d3fd4.png" width=50% height=50%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and chart show the average number of points scored per race for each driver, based on their career statistics. The points per race metric is a useful way to compare drivers' performance, as it takes into account both the number of races a driver has competed in and the number of points they have scored.</p>
+<p align = "justify">
+It is notable that Lewis Hamilton has the highest average points per race among all the drivers, with a score of 13.96. This is a reflection of his consistent performance over the years, as well as his ability to win races and score podium finishes. Sebastian Vettel and Valtteri Bottas also have impressive scores of 10.33 and 8.85, respectively.</p>
+<p align = "justify">
+Interestingly, some of the greatest drivers in Formula 1 history, such as Alain Prost and Ayrton Senna, do not appear in the top 10 in terms of points per race. This is likely because they competed in an era where fewer points were awarded for each race, and there were fewer races overall in the season. It also highlights the importance of context when interpreting statistics in Formula 1.</p>
+
+
+
+
+
+
+
 
 
 
