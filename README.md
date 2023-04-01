@@ -304,13 +304,67 @@ SELECT *
 FROM qualifying;
 ```
 ## . Analyzing Data to Find the Most Successful Constructors
+Join results table and constructors table:
 ``` sql
--- Join results table and constructors table
 SELECT *
 FROM results r
 JOIN constructors c
 ON r.constructorId = c.constructorId;
 ```
+### Find the Constructor Who Has Entered the Most Races
+Exact columns needed to find total races entered
+``` sql
+SELECT c.name, COUNT(DISTINCT r.raceId) AS total_races
+FROM results r
+JOIN constructors c
+ON r.constructorId = c.constructorId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+Result
+
+| name       | total_races |
+|------------|-------------|
+| Ferrari    | 1054        |
+| McLaren    | 883         |
+| Williams   | 797         |
+| Tyrrell    | 433         |
+| Renault    | 403         |
+| Sauber     | 395         |
+| Team Lotus | 395         |
+| Red Bull   | 348         |
+| Minardi    | 345         |
+| Ligier     | 330         |
+
+From the table it is clear that Ferrari is the team with the most races entered, with a total of 1054 races.
+
+### Find the Constructor Who Has Earn the Most Points in F1 History
+Exact columns needed to find total points
+``` sql
+SELECT c.name, SUM(r.points) AS total_points
+FROM results r
+JOIN constructors c
+ON r.constructorId = c.constructorId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+Result
+| name        | total_points |
+|-------------|--------------|
+| Ferrari     | 10138        |
+| Mercedes    | 6924         |
+| Red Bull    | 6347         |
+| McLaren     | 6149         |
+| Williams    | 3599         |
+| Renault     | 1777         |
+| Force India | 1098         |
+| Team Lotus  | 995          |
+| Benetton    | 862          |
+| Tyrrell     | 711          |
+
+From the table it is clear that Ferrari is the team that has earned the most points in the history of F1, with 10138.  Mercedes is seconds with 6924 points, which is very impressive since the team was only founded in 2010.
 
 ### Methods Implemented 
 This project contains implementations of scientific methods such as: 
