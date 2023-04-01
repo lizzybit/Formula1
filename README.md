@@ -337,7 +337,7 @@ LIMIT 10;
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229288014-8c27c80c-86b1-451e-92ef-a075a7e1221d.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229288014-8c27c80c-86b1-451e-92ef-a075a7e1221d.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
@@ -370,7 +370,7 @@ LIMIT 10;
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229288803-536288a7-f0d3-4cf9-9bf8-f3cc7ab6272d.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229288803-536288a7-f0d3-4cf9-9bf8-f3cc7ab6272d.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
@@ -407,7 +407,7 @@ From the table it is clear that on average Mercedes scores the most amount of po
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229291997-5432ecc2-951f-4555-a5e9-e7a02d18555e.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229291997-5432ecc2-951f-4555-a5e9-e7a02d18555e.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
@@ -452,7 +452,7 @@ LIMIT 10;
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229294013-22cdb9b4-ae45-48a3-a195-853a5e574c05.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229294013-22cdb9b4-ae45-48a3-a195-853a5e574c05.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
@@ -489,7 +489,7 @@ LIMIT 10;
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229294669-1f405ca0-25eb-4ffc-8bc4-6250bd6b50a8.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229294669-1f405ca0-25eb-4ffc-8bc4-6250bd6b50a8.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
@@ -525,7 +525,7 @@ LIMIT 10;
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229296101-6da6ef8c-a10a-4cab-9a20-6451507d3fd4.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229296101-6da6ef8c-a10a-4cab-9a20-6451507d3fd4.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
@@ -605,7 +605,7 @@ LIMIT 10;
 
 #### -- Visualization of Data
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/128324837/229297916-50863d2d-63ed-46e5-8d0b-305b46fb3675.png" width=50% height=50%> </p>
+<img src="https://user-images.githubusercontent.com/128324837/229297916-50863d2d-63ed-46e5-8d0b-305b46fb3675.png" width=60% height=60%> </p>
 
 #### -- Discussion of Data and Results
 <p align = "justify">
