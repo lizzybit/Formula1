@@ -589,8 +589,29 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
+#### -- Result of Query
+| surname    | total_championships |
+|------------|---------------------|
+| Schumacher | 7                   |
+| Hamilton   | 7                   |
+| Fangio     | 5                   |
+| Prost      | 4                   |
+| Vettel     | 4                   |
+| Hill       | 4                   |
+| Senna      | 3                   |
+| Piquet     | 3                   |
+| Brabham    | 3                   |
+| Stewart    | 3                   |
 
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229297916-50863d2d-63ed-46e5-8d0b-305b46fb3675.png" width=50% height=50%> </p>
 
+#### -- Discussion of Data and Results
+<p align = "justify">
+This table and chart show the total number of world championships won by the top 10 drivers. The world championship is awarded to the driver who accumulates the most points over the course of a Formula One season.</p>
+<p align = "justify">
+The fact that Michael Schumacher and Lewis Hamilton are tied for the most championships at 7 each is particularly impressive, as it demonstrates their exceptional talent and longevity in the sport. Both drivers have dominated their respective eras and set numerous records, cementing their status as two of the greatest drivers in the history of Formula One.</p>
 
 
 
