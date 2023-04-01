@@ -4,6 +4,34 @@
 
 # Formula 1 Data Exploration
 
+
+## Table of Contents
+- [1. Background and Motivation](#1-background-and-motivation)
+- [2. Research Questions](#2-research-questions)
+- [3. Data Retrieval and Standard Descriptive Analysis](#3-data-retrieval-and-standard-descriptive-analysis)
+- [4. Clean the Data in Excel](#4-clean-the-data-in-excel)
+- [5. Import the Data to SQL](#5-import-the-data-to-sql)
+- [6. Analyzing Data to Find the Most Successful Constructors](#6-analyzing-data-to-find-the-most-successful-constructors)
+  * [6.1 Find the Constructor Who Has Entered the Most Races](#61-find-the-constructor-who-has-entered-the-most-races)
+  * [6.2 Find the Constructor Who Has Earn the Most Points in F1 History](#62-find-the-constructor-who-has-earn-the-most-points-in-f1-history)
+  * [6.3 Find the Highest Average Points Earned Per Race by Constructors Who Have Entered at Least 100 Races](#63-find-the-highest-average-points-earned-per-race-by-constructors-who-have-entered-at-least-100-races)
+- [7. Analyzing Data to Find the Most Successful Drivers](#7-analyzing-data-to-find-the-most-successful-drivers)
+  * [7.1 Find the Driver Who Has Entered the Most Races](#71-find-the-driver-who-has-entered-the-most-races)
+  * [7.2 Find the Driver Who Has Earn the Most Points in F1 History](#72-find-the-driver-who-has-earn-the-most-points-in-f1-history)
+  * [7.3 Find the Highest Average Points Earned Per Race by Drivers Who Have Entered at Least 50 Races](#73-find-the-highest-average-points-earned-per-race-by-drivers-who-have-entered-at-least-50-races)
+  * [7.4 Find the Driver Who has Won the Most World Championships](#74-find-the-driver-who-has-won-the-most-world-championships)
+- [8. Analyzing Data to Find the Most Successful Countries in Terms of Formula 1 World Champions](#8-analyzing-data-to-find-the-most-successful-countries-in-terms-of-formula-1-world-champions)
+  * [8.1 Find the Countries with the Highest Number and Percentage of Drivers](#81-find-the-countries-with-the-highest-number-and-percentage-of-drivers)
+  * [8.2 Find the Countries with the Highest Number and Percentage of Champions](#82-find-the-countries-with-the-highest-number-and-percentage-of-champions)
+- [8. Analyzing Data to Find the Track Record for Each Circuit and Which Driver Has the Most Fastest Laps](#8-analyzing-data-to-find-the-track-record-for-each-circuit-and-which-driver-has-the-most-fastest-laps)
+  * [8.1 Find the Track Record for Each Circuit](#81-find-the-track-record-for-each-circuit)
+  * [8.2 Find the Driver with the Most Fastest Laps](#82-find-the-driver-with-the-most-fastest-laps)
+- [9. Analyzing Data to Find Determine if Higher Altitude Cause More Engine Failures](#9-analyzing-data-to-find-determine-if-higher-altitude-cause-more-engine-failures)
+  * [9.1 Find the Total Failures and Altitudes for Various Circuits](#91-find-the-total-failures-and-altitudes-for-various-circuits)
+- [10. Tableau Dashboards](#10-tableau-dashboards)
+- [11. Summary and Conclusion](#11-summary-and-conclusion)
+
+
 ## 1. Background and Motivation
 <p align = "justify"> Formula One (F1) is one of the most exciting and high-profile sports in the world, with a global fan base of millions. The sport's popularity is fueled by its high-speed, adrenaline-fueled action, as well as its history and prestige. F1 racing involves cutting-edge technology, precision engineering, and world-class drivers, all of which come together to create a thrilling and unpredictable spectacle. 
     </p>
@@ -16,7 +44,7 @@
 
 <p align = "justify"> The insights generated from this project could be useful for a wide range of stakeholders in the F1 ecosystem, including teams, drivers, sponsors, and fans. By understanding the factors that contribute to success in F1, teams and drivers can make data-driven decisions to improve their performance and gain a competitive edge. Sponsors could use the insights to identify potential opportunities for branding and marketing, while fans could gain a deeper appreciation and understanding of the sport they love.
     </p>
-
+<p align = "justify">The project was conducted using the framework of Data Analysis in 5 Steps. This framework is a widely recognized and comprehensive approach to analyzing data and provides a structured process for working with data. The five steps involved in this framework are: defining the problem, collecting data, preparing and cleaning the data, analyzing the data, and finally, interpreting the results. By following these steps, we can ensure that the data is properly managed, the analysis is reliable and accurate, and that the results obtained are valid and can be used to make informed decisions.	</p>
 <p align = "justify"> Overall, this project aims to provide valuable insights into the performance of F1 teams and drivers and advance our understanding of the factors that contribute to success in the sport. By leveraging the power of big data and SQL, we can unlock hidden patterns and trends in the data that can inform decision-making and enhance our appreciation of this thrilling sport.
   </p>
 
@@ -26,9 +54,10 @@ I have chosen the following reseach questions to focus on in this project:
 1. Which constructor teams are the most successful in terms of total races entered and total points earned?
 2. Which drivers are the most successful in terms of total points and wins?
 3. Which country produces the most world champions?
-4. Does higher altitude cause more engine failures in Formula 1 races?
+4. What is the track record for each circuits and who set that record?
+5. Does higher altitude cause more engine failures in Formula 1 races?
 
-## 3. Dataset: Data Retrieval and Standard Descriptive Analysis
+## 3. Data Retrieval and Standard Descriptive Analysis
 
 The dataset used in the project is available at: [https://www.kaggle.com/cjgdev/formula-1-race-data-19502017](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
 
@@ -50,11 +79,25 @@ The dataset includes:
 12. **seasons.csv:** This file contains data on each season of Formula 1.
 13. **status.csv:** This file contains information about the status codes that can be assigned to a driver's car during a race.
 
+
+## 4. Clean the Data in Excel
+<p align = "justify">
+The majority of the data cleaning in this project was done in Excel. This process of data wrangling was done in several steps:  </p>
+<p align = "justify">
+1. The first step was to import the data into Excel and ensure that all columns were properly labeled.  </p>
+<p align = "justify">
+2. The second step was to clean the date and time columns. The date was originally in the format of "dd/mm/yyyy" and the time was in "hh:mm". To make these columns more usable in SQL, the date format was changed to "yyyy-mm-dd" and the time was changed to "hh:mm:ss".  </p>
+<p align = "justify">
+3. The third step was to address any missing data. In this case, there were no missing values, but if there were, several techniques could be used such as replacing missing values with the mean or mode of the column, or deleting the rows with missing values altogether.  </p>
+<p align = "justify">
+4. The fourth step was to address any duplicate data. In this case, there were no duplicate rows, but if there were, Excel's remove duplicates function could be used to remove any duplicate rows.  </p>
+<p align = "justify">
+5. The fifth step was to check for and address any inconsistencies in the data. In this case, there were no inconsistencies found, but if there were, some techniques that could be used include data validation, using pivot tables to group data and identify inconsistencies, and cross-checking data with external sources.  </p>
+
 ## 5. Import the Data to SQL
-The next step into import the data into mySQL
+The next is step is to create tables and import the data into mySQL
 
 ```sql 
--- Create tables and import data
 
 # 1: Circuits
 CREATE TABLE circuits (
@@ -252,7 +295,6 @@ SELECT *
 FROM constructor_results;
 
 # 12: Results
-drop table results;
 CREATE TABLE results (
 	resultsId integer,
     raceId integer,
@@ -303,7 +345,7 @@ IGNORE 1 ROWS;
 SELECT *
 FROM qualifying;
 ```
-## . Analyzing Data to Find the Most Successful Constructors
+## 6. Analyzing Data to Find the Most Successful Constructors
 Join results table and constructors table:
 ``` sql
 SELECT *
@@ -311,8 +353,8 @@ FROM results r
 JOIN constructors c
 ON r.constructorId = c.constructorId;
 ```
-### Find the Constructor Who Has Entered the Most Races
-Exact columns needed to find total races entered
+### 6.1 Find the Constructor Who Has Entered the Most Races
+Exact columns needed to find total races entered by constructors:
 ``` sql
 SELECT c.name, COUNT(DISTINCT r.raceId) AS total_races
 FROM results r
@@ -322,7 +364,7 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
-Result
+#### -- Result of query
 
 | name       | total_races |
 |------------|-------------|
@@ -337,10 +379,16 @@ Result
 | Minardi    | 345         |
 | Ligier     | 330         |
 
-From the table it is clear that Ferrari is the team with the most races entered, with a total of 1054 races.
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229288014-8c27c80c-86b1-451e-92ef-a075a7e1221d.png" width=60% height=60%> </p>
 
-### Find the Constructor Who Has Earn the Most Points in F1 History
-Exact columns needed to find total points
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and barchart show the number of races entered by the top 10 constructor teams in Formula 1 history. Ferrari is the most successful constructor with a total of 1054 races entered, followed by McLaren with 883 races and Williams with 797 races. Tyrrell, Renault, Sauber, and Team Lotus have all entered over 300 races, while Red Bull, Minardi, and Ligier complete the top 10 with over 300 races entered as well. This table provides insight into the longevity and success of these teams in the history of Formula 1.</p>
+
+### 6.2 Find the Constructor Who Has Earn the Most Points in F1 History
+Exact columns needed to find total points earned by constructors:
 ``` sql
 SELECT c.name, SUM(r.points) AS total_points
 FROM results r
@@ -350,7 +398,7 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 ```
-Result
+#### -- Result of Query
 | name        | total_points |
 |-------------|--------------|
 | Ferrari     | 10138        |
@@ -364,10 +412,606 @@ Result
 | Benetton    | 862          |
 | Tyrrell     | 711          |
 
-From the table it is clear that Ferrari is the team that has earned the most points in the history of F1, with 10138.  Mercedes is seconds with 6924 points, which is very impressive since the team was only founded in 2010.
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229288803-536288a7-f0d3-4cf9-9bf8-f3cc7ab6272d.png" width=60% height=60%> </p>
 
-### Methods Implemented 
-This project contains implementations of scientific methods such as: 
-- Data Wrangling
-- Data Integration & Data Enrichment
-- Linear Regression
+#### -- Discussion of Data and Results
+<p align = "justify">
+The above table and barchart show the total points earned by different Formula 1 constructor teams throughout their history in the sport. Points are awarded based on a team's performance in each race, with the team scoring the most points at the end of the season being declared the Constructors' Champion. From the table it is clear that Ferrari is the team that has earned the most points in the history of F1, with 10138.  Mercedes is seconds with 6924 points.</p>
+<p align = "justify">
+It is impressive that Mercedes is so high on the list because they have only been competing as a works team in Formula 1 since 2010, but in that time they have become one of the most dominant teams in the sport's history. They have won the Constructors' Championship in every season from 2014 to 2021. This sustained period of success has allowed them to accumulate a significant number of points in a relatively short period of time, which is reflected in their high ranking on this table.</p>
+
+### 6.3 Find the Highest Average Points Earned Per Race by Constructors Who Have Entered at Least 100 Races
+``` sql
+SELECT c.name, ROUND(SUM(r.points)/COUNT(DISTINCT r.raceId),2) AS points_per_race
+FROM results r
+JOIN constructors c
+ON r.constructorId = c.constructorId
+GROUP BY 1
+HAVING COUNT(DISTINCT r.raceId) >=100
+ORDER BY 2 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| name        | points_per_race |
+|-------------|-----------------|
+| Mercedes    | 25.55           |
+| Red Bull    | 18.24           |
+| Ferrari     | 9.62            |
+| McLaren     | 6.96            |
+| Force India | 5.18            |
+| Williams    | 4.52            |
+| Renault     | 4.41            |
+| Benetton    | 3.32            |
+| BRM         | 2.59            |
+| Team Lotus  | 2.52            |
+
+From the table it is clear that on average Mercedes scores the most amount of points per race at 25.55. From this table and the following visualization, it is clear why Mercedes are the team with the second most points every, even after being in the sport for only a relatively short time.
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229291997-5432ecc2-951f-4555-a5e9-e7a02d18555e.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and barchart show the average points per race for each Formula One team. It is impressive to see that Mercedes tops the list with a points per race average of 25.55, which is more than double the second-place team, Red Bull, with 18.24. This indicates that Mercedes has been consistently successful in scoring points across races.</p>
+<p align = "justify">
+It's interesting to note that the former Force India team, now racing as Aston Martin, has a higher points per race average than Williams and Renault, despite not having as long of a history in the sport. Overall, the table indicates the dominance of Mercedes in recent years, as well as the consistency and success of Red Bull and Ferrari.</p>
+
+## 7. Analyzing Data to Find the Most Successful Drivers
+Join results table and drivers table:
+``` sql
+SELECT *
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId;
+```
+
+### 7.1 Find the Driver Who Has Entered the Most Races
+
+Exact columns needed to find total races entered by drivers:
+``` sql
+SELECT d.surname, COUNT(DISTINCT r.raceId) AS total_races
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| surname     | total_races |
+|-------------|-------------|
+| Schumacher  | 375         |
+| Alonso      | 358         |
+| Räikkönen   | 352         |
+| Rosberg     | 334         |
+| Barrichello | 326         |
+| Hamilton    | 315         |
+| Button      | 309         |
+| Hill        | 303         |
+| Vettel      | 300         |
+| Massa       | 271         |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229294013-22cdb9b4-ae45-48a3-a195-853a5e574c05.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and barchart show the top 10 drivers with the highest number of total races in Formula 1. At the top of the list is Michael Schumacher with 375 races, followed closely by Fernando Alonso with 358 races and Kimi Räikkönen with 352 races.</p>
+<p align = "justify">
+It's worth noting that despite their impressive number of races, some of these drivers have not won a world championship. For example, Barrichello has the highest number of races (326) without ever winning a championship. Button also raced in 309 Grand Prix races, but only managed to win one championship. Hill, who comes in at number eight on the list, won one championship in his 303 race career.</p>
+<p align = "justify">
+Overall, this table highlights the longevity and consistency of some of the most successful drivers in Formula 1 history.</p>
+
+### 7.2 Find the Driver Who Has Earn the Most Points in F1 History
+Exact columns needed to find total points earned by drivers:
+``` sql
+SELECT d.surname, SUM(r.points) AS total_points
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| surname    | total_points |
+|------------|--------------|
+| Hamilton   | 4397         |
+| Vettel     | 3098         |
+| Alonso     | 2061         |
+| Verstappen | 2001         |
+| Schumacher | 1907         |
+| Räikkönen  | 1873         |
+| Bottas     | 1778         |
+| Rosberg    | 1755         |
+| Ricciardo  | 1307         |
+| Button     | 1235         |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229294669-1f405ca0-25eb-4ffc-8bc4-6250bd6b50a8.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and bar chart show the total points earned by the top 10 Formula 1 drivers of all time. It is important to note that the points system in Formula 1 has changed over the years, so it is not entirely fair to compare the points earned by drivers from different eras. However, it is clear from the table that Lewis Hamilton is the most successful driver in terms of total points earned, with a staggering 4397 points to his name.</p>
+<p align = "justify">
+It is interesting to note that the points per race have increased over the years due to various rule changes, including the introduction of double points for the final race of the season in 2014. This means that drivers who have raced in more recent seasons have had more opportunities to earn points, and as a result, they may appear higher on this list than drivers from earlier eras.</p>
+
+### 7.3 Find the Highest Average Points Earned Per Race by Drivers Who Have Entered at Least 50 Races
+``` sql
+SELECT d.surname, ROUND(SUM(r.points)/COUNT(DISTINCT r.raceId),2) AS points_per_race
+FROM results r
+JOIN drivers d
+ON r.driverId = d.driverId
+GROUP BY 1
+HAVING COUNT(DISTINCT r.raceId) >=50
+ORDER BY 2 DESC
+LIMIT 10;
+```
+
+#### -- Result of Query
+| surname     | points_per_race |
+|-------------|-----------------|
+| Hamilton    | 13.96           |
+| Vettel      | 10.33           |
+| Bottas      | 8.85            |
+| Leclerc     | 8.26            |
+| Verstappen  | 7.41            |
+| Alonso      | 5.76            |
+| Ricciardo   | 5.63            |
+| Fangio      | 5.49            |
+| Räikkönen   | 5.32            |
+| Rosberg     | 5.25            |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229296101-6da6ef8c-a10a-4cab-9a20-6451507d3fd4.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table and chart show the average number of points scored per race for each driver, based on their career statistics. The points per race metric is a useful way to compare drivers' performance, as it takes into account both the number of races a driver has competed in and the number of points they have scored.</p>
+<p align = "justify">
+It is notable that Lewis Hamilton has the highest average points per race among all the drivers, with a score of 13.96. This is a reflection of his consistent performance over the years, as well as his ability to win races and score podium finishes. Sebastian Vettel and Valtteri Bottas also have impressive scores of 10.33 and 8.85, respectively.</p>
+<p align = "justify">
+Interestingly, some of the greatest drivers in Formula 1 history, such as Alain Prost and Ayrton Senna, do not appear in the top 10 in terms of points per race. This is likely because they competed in an era where fewer points were awarded for each race, and there were fewer races overall in the season. It also highlights the importance of context when interpreting statistics in Formula 1.</p>
+
+### 7.4 Find the Driver Who has Won the Most World Championships
+Group drivers by nationality, year and surname to get the max points achieved every season:
+``` sql
+SELECT d.surname, d.nationality, r.year, MAX(ds.points) AS total_points, MAX(ds.wins) AS total_wins
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+GROUP BY 1,2,3
+ORDER BY 4 DESC;
+```
+Use the the max points achieved every season to find the world champion for every year:
+``` sql
+SELECT DISTINCT r.year, d.nationality, d.surname, ds.points
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+WHERE (r.year, ds.points) IN (
+	SELECT r.year, MAX(ds.points)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1
+)
+AND ds.points <> 0 
+ORDER BY 1 DESC;
+```
+Find the drivers with the most world championships:
+``` sql
+SELECT d.surname, COUNT(DISTINCT r.year) AS total_championships
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+WHERE (r.year, ds.points) IN (
+	SELECT r.year, MAX(ds.points)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1
+)
+AND ds.points <> 0
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| surname    | total_championships |
+|------------|---------------------|
+| Schumacher | 7                   |
+| Hamilton   | 7                   |
+| Fangio     | 5                   |
+| Prost      | 4                   |
+| Vettel     | 4                   |
+| Hill       | 4                   |
+| Senna      | 3                   |
+| Piquet     | 3                   |
+| Brabham    | 3                   |
+| Stewart    | 3                   |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229297916-50863d2d-63ed-46e5-8d0b-305b46fb3675.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+This table and chart show the total number of world championships won by the top 10 drivers. The world championship is awarded to the driver who accumulates the most points over the course of a Formula One season.</p>
+<p align = "justify">
+The fact that Michael Schumacher and Lewis Hamilton are tied for the most championships at 7 each is particularly impressive, as it demonstrates their exceptional talent and longevity in the sport. Both drivers have dominated their respective eras and set numerous records, cementing their status as two of the greatest drivers in the history of Formula One.</p>
+
+## 8. Analyzing Data to Find the Most Successful Countries in Terms of Formula 1 World Champions
+### 8.1 Find the Countries with the Highest Number and Percentage of Drivers
+
+Extract data from drivers and create smaller temporary with the columns needed:
+``` sql
+CREATE TEMPORARY TABLE num_drivers (
+	nationality varchar(255),
+    number_of_drivers integer
+    );
+
+INSERT INTO num_drivers
+SELECT nationality, COUNT(nationality) AS number_of_drivers
+FROM drivers
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+Find the number of drivers from each country:
+``` sql
+SELECT *
+FROM num_drivers;
+```
+Calculate the number and percentage of drivers in the database grouped by nationality:
+``` sql
+SELECT 	nationality, 
+	COUNT(nationality) AS number_of_drivers, 
+	ROUND(COUNT(nationality) * 100.0/SUM(COUNT(nationality)) OVER(), 2) AS percentage_of_drivers
+FROM drivers
+GROUP BY 1
+ORDER BY 3 DESC
+LIMIT 10;
+```
+#### -- Result of Query
+| nationality       | number_of_drivers | percentage_of_drivers |
+|-------------------|-------------------|-----------------------|
+| British           | 165               | 19.25                 |
+| American          | 158               | 18.44                 |
+| Italian           | 99                | 11.55                 |
+| French            | 73                | 8.52                  |
+| German            | 50                | 5.83                  |
+| Brazilian         | 32                | 3.73                  |
+| Argentine         | 24                | 2.8                   |
+| South African     | 23                | 2.68                  |
+| Swiss             | 23                | 2.68                  |
+| Belgian           | 23                | 2.68                  |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229303610-bc92f1a3-9e5a-4b7a-a37a-7b7ac8c413fa.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+From the table, we can see that British and American drivers make up the two largest groups of drivers, with British drivers having the highest percentage at 19.25%. Italian, French, and German drivers also make up a significant portion of the dataset, with Brazilian, Argentine, South African, Swiss, and Belgian drivers making up smaller percentages.</p>
+
+### 8.2 Find the Countries with the Highest Number and Percentage of Champions
+Extract data from drivers and create smaller temporary with the columns needed:
+``` sql
+CREATE TEMPORARY TABLE num_champions (
+	nationality varchar(255),
+    number_of_champions integer
+    );
+    
+INSERT INTO num_champions
+WITH champions AS (
+SELECT DISTINCT r.year, d.nationality, d.surname, ds.points
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+WHERE (r.year, ds.points) IN (
+	SELECT r.year, MAX(ds.points)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1
+)
+AND ds.points <> 0
+ORDER BY 1 DESC
+)
+SELECT nationality, COUNT(nationality) AS number_of_champions
+FROM champions
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+Find the number of world champions from each country:
+``` sql
+SELECT *
+FROM num_champions;
+```
+Combine tables to find the total drivers and total world champions for each country:
+``` sql
+SELECT nc.nationality, nc.number_of_champions, nd.number_of_drivers
+FROM num_champions nc
+JOIN num_drivers nd
+ON nc.nationality = nd.nationality;
+```
+Calculate the ratio of drivers to world champions for each country:
+``` sql
+SELECT DISTINCT nc.nationality, nc.number_of_champions, nd.number_of_drivers, ROUND(nc.number_of_champions/nd.number_of_drivers*100, 2) AS win_percent
+FROM num_champions nc
+JOIN num_drivers nd
+ON nc.nationality = nd.nationality
+ORDER BY 4 DESC;
+```
+#### -- Result of Query
+| nationality   | number_of_champions | number_of_drivers | win_percent |
+|---------------|---------------------|-------------------|-------------|
+| Finnish       | 4                   | 9                 | 44.44       |
+| Austrian      | 4                   | 15                | 26.67       |
+| Brazilian     | 8                   | 32                | 25          |
+| German        | 12                  | 50                | 24          |
+| Australian    | 4                   | 18                | 22.22       |
+| Argentine     | 5                   | 24                | 20.83       |
+| Spanish       | 2                   | 15                | 13.33       |
+| British       | 20                  | 165               | 12.12       |
+| Dutch         | 2                   | 18                | 11.11       |
+| New Zealander | 1                   | 9                 | 11.11       |
+| Canadian      | 1                   | 14                | 7.14        |
+| French        | 5                   | 73                | 6.85        |
+| South African | 1                   | 23                | 4.35        |
+| Italian       | 3                   | 99                | 3.03        |
+| American      | 2                   | 158               | 1.27        |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229307757-260816cb-c091-4bec-afe2-ca6882b4ec0b.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+Here are some observations from the above table and chart: </p>
+<p align = "justify">
+- Finnish drivers have the highest win percentage at 44.44%, with 4 champions out of 9 drivers. </p>
+<p align = "justify">
+- British drivers have the most champions at 20, but a lower win percentage at 12.12% due to a larger number of drivers (165). </p>
+<p align = "justify">
+- Brazilian and German drivers also have high numbers of champions (8 and 12, respectively), with win percentages of 25% and 24%. </p>
+<p align = "justify">
+- French drivers have the largest number of drivers (73), but a lower win percentage at 6.85% due to only 5 champions. </p>
+<p align = "justify">
+- American drivers have the lowest win percentage at 1.27%, with only 2 champions out of 158 drivers. </p>
+
+## 8. Analyzing Data to Find the Track Record for Each Circuit and Which Driver Has the Most Fastest Laps
+### 8.1 Find the Track Record for Each Circuit
+Merge and extract important columns from different tables:
+``` sql
+SELECT * 
+FROM circuits c
+JOIN races r
+ON c.circuitId = r.circuitId
+JOIN results re
+ON r.raceId = re.raceId
+JOIN drivers d
+ON re.driverId = d.driverId;
+```
+Find the track record for each circuit:
+``` sql
+WITH lap_records AS (
+    SELECT c.circuitId, MIN(re.fastestLapTime) AS lap_record
+    FROM circuits c
+    JOIN races r ON c.circuitId = r.circuitId
+    JOIN results re ON r.raceId = re.raceId
+    WHERE re.fastestLapTime IS NOT NULL AND re.fastestLapTime <> 0 
+    GROUP BY c.circuitId
+)
+SELECT c.name, c.country, d.surname, lr.lap_record, r.year
+FROM circuits c
+JOIN races r ON c.circuitId = r.circuitId
+JOIN results re ON r.raceId = re.raceId
+JOIN drivers d ON re.driverId = d.driverId
+JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
+ORDER BY 2;
+```
+#### -- Result of Query
+| name                                 | country      | surname       | lap_record | year |
+|--------------------------------------|--------------|---------------|------------|------|
+| Albert Park Grand Prix Circuit       | Australia    | Leclerc       | 80.26      | 2022 |
+| Red Bull Ring                        | Austria      | Sainz         | 65.619     | 2020 |
+| Baku City Circuit                    | Azerbaijan   | Leclerc       | 103.009    | 2019 |
+| Bahrain International Circuit        | Bahrain      | Russell       | 55.404     | 2020 |
+| Circuit de Spa-Francorchamps         | Belgium      | Räikkönen     | 105.108    | 2004 |
+| Autodromo Jose Carlos Pace           | Brazil       | Bottas        | 70.54      | 2018 |
+| Circuit Gilles Villeneuve            | Canada       | Bottas        | 73.078     | 2019 |
+| Shanghai International Circuit       | China        | Schumacher    | 92.238     | 2004 |
+| Circuit de Nevers Magny-Cours        | France       | Schumacher    | 75.377     | 2004 |
+| Circuit Paul Ricard                  | France       | Vettel        | 92.74      | 2019 |
+| Nurburgring                          | Germany      | Verstappen    | 88.139     | 2020 |
+| Hockenheimring                       | Germany      | Räikkönen     | 73.78      | 2004 |
+| Hungaroring                          | Hungary      | Hamilton      | 76.627     | 2020 |
+| Buddh International Circuit          | India        | Vettel        | 87.249     | 2011 |
+| Autodromo Internazionale del Mugello | Italy        | Hamilton      | 78.833     | 2020 |
+| Autodromo Enzo e Dino Ferrari        | Italy        | Hamilton      | 75.484     | 2020 |
+| Autodromo Nazionale di Monza         | Italy        | Barrichello   | 81.046     | 2004 |
+| Suzuka Circuit                       | Japan        | Hamilton      | 90.983     | 2019 |
+| Fuji Speedway                        | Japan        | Massa         | 78.426     | 2008 |
+| Korean International Circuit         | Korea        | Vettel        | 99.605     | 2011 |
+| Sepang International Circuit         | Malaysia     | Vettel        | 94.08      | 2017 |
+| Autodromo Hermanos Rodriguez         | Mexico       | Bottas        | 77.774     | 2021 |
+| Circuit de Monaco                    | Monaco       | Hamilton      | 72.909     | 2021 |
+| Circuit Park Zandvoort               | Netherlands  | Hamilton      | 71.097     | 2021 |
+| Autodromo Internacional do Algarve   | Portugal     | Hamilton      | 78.75      | 2020 |
+| Losail International Circuit         | Qatar        | Verstappen    | 83.196     | 2021 |
+| Sochi Autodrom                       | Russia       | Hamilton      | 95.761     | 2019 |
+| Jeddah Corniche Circuit              | Saudi Arabia | Hamilton      | 90.734     | 2021 |
+| Marina Bay Street Circuit            | Singapore    | Magnussen     | 101.905    | 2018 |
+| Circuit de Barcelona-Catalunya       | Spain        | Fisichella    | 75.641     | 2005 |
+| Valencia Street Circuit              | Spain        | Glock         | 98.683     | 2009 |
+| Istanbul Park                        | Turkey       | Pablo Montoya | 84.77      | 2005 |
+| Yas Marina Circuit                   | UAE          | Verstappen    | 86.103     | 2021 |
+| Silverstone Circuit                  | UK           | Schumacher    | 78.739     | 2004 |
+| Miami International Autodrome        | USA          | Verstappen    | 91.361     | 2022 |
+| Indianapolis Motor Speedway          | USA          | Barrichello   | 70.399     | 2004 |
+| Circuit of the Americas              | USA          | Leclerc       | 96.169     | 2019 |
+
+
+#### -- Discussion of Data and Results
+<p align = "justify"> 
+The table provides a list of various Grand Prix circuits from around the world along with the lap records and the names of the drivers who set them. The slowest lap time is the highest lap record time in the table, which is 103.009 seconds set by Charles Leclerc at the Baku City Circuit in Azerbaijan in 2019. The fastest lap time is the lowest lap record time in the table, which is 55.404 seconds set by George Russell at the Bahrain International Circuit in Bahrain in 2020.</p>
+
+### 8.2 Find the Driver with the Most Fastest Laps
+``` sql
+WITH lap_records AS (
+    SELECT c.circuitId, MIN(re.fastestLapTime) AS lap_record
+    FROM circuits c
+    JOIN races r ON c.circuitId = r.circuitId
+    JOIN results re ON r.raceId = re.raceId
+    WHERE re.fastestLapTime IS NOT NULL AND re.fastestLapTime <> 0 
+    GROUP BY c.circuitId)
+SELECT d.surname, COUNT(d.surname) AS fastest_laps
+FROM circuits c
+JOIN races r ON c.circuitId = r.circuitId
+JOIN results re ON r.raceId = re.raceId
+JOIN drivers d ON re.driverId = d.driverId
+JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+#### -- Result of Query
+| surname       | fastest_laps |
+|---------------|--------------|
+| Hamilton      | 9            |
+| Verstappen    | 4            |
+| Vettel        | 4            |
+| Leclerc       | 3            |
+| Schumacher    | 3            |
+| Bottas        | 3            |
+| Räikkönen     | 2            |
+| Barrichello   | 2            |
+| Magnussen     | 1            |
+| Sainz         | 1            |
+| Glock         | 1            |
+| Fisichella    | 1            |
+| Massa         | 1            |
+| Russell       | 1            |
+| Pablo Montoya | 1            |
+
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229309167-3b5f0cfc-c7c6-4739-ade8-9d884eb13ead.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The table lists the surnames of Formula One drivers who have achieved the fastest lap times at various circuits around the world, along with the number of fastest laps achieved by each driver. The table shows that Hamilton has the most number of fastest laps at 9, followed by Verstappen and Vettel at 4 each.</p>
+<p align = "justify">
+It is important to note that some of the circuits listed in the table are no longer in use, such as the Circuit de Nevers Magny-Cours in France and the Indianapolis Motor Speedway in the USA. This is why older drivers have achieved some of the fastest laps is not necessarily because they were better drivers, but because they had the opportunity to set those times on tracks that are no longer used in Formula One or have undergone significant changes over the years.</p>
+	
+
+## 9. Analyzing Data to Find Determine if Higher Altitude Cause More Engine Failures
+<p align = "justify">
+At higher altitudes, air is less dense, which means that less air flows through the radiators and intake valves to cool the engine and brakes. Additionally, engines require oxygen to ignite combustion, and a lack of it can cause a decrease in performance. The main indicators of such conditions are overheating of transmission and engine components. The Autódromo Hermanos Rodríguez, where the Mexican GP takes place, is located at an elevation of 2227 meters above sea level, making it significantly higher than any other track on the F1 calendar. </p>
+
+### 9.1 Find the Total Failures and Altitudes for Various Circuits
+
+Merging circuits, race, results and status data:
+``` sql
+SELECT *
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId;
+```
+Exact columns needed, including rows with issues correlated with thin air in higher altitudes, setting the year to last 7 to include Mexico GP. Note '5' here means 'Engine' and '7' means 'Transmission':
+``` sql
+SELECT 
+    c.name, 
+    c.country, 
+    c.alt, 
+    r.year,
+    s.statusId,
+    s.status
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7);
+```
+	
+Find the total failures and the altitude of the track they occurred on:
+``` sql
+SELECT c.name, c.alt, COUNT(s.statusId) AS failures
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7)
+GROUP BY 1,2
+ORDER BY 3 DESC;
+```
+#### -- Result of Query
+| Autodromo Hermanos Rodriguez   | Mexico      | 2227 | 7 |
+|--------------------------------|-------------|------|---|
+| Autodromo Jose Carlos Pace     | Brazil      | 785  | 1 |
+| Red Bull Ring                  | Austria     | 678  | 4 |
+| Circuit Paul Ricard            | France      | 432  | 1 |
+| Circuit de Spa-Francorchamps   | Belgium     | 401  | 4 |
+| Hungaroring                    | Hungary     | 264  | 1 |
+| Autodromo Nazionale di Monza   | Italy       | 162  | 7 |
+| Circuit of the Americas        | USA         | 161  | 3 |
+| Hockenheimring                 | Germany     | 103  | 3 |
+| Suzuka Circuit                 | Japan       | 45   | 1 |
+| Sepang International Circuit   | Malaysia    | 18   | 2 |
+| Marina Bay Street Circuit      | Singapore   | 18   | 5 |
+| Circuit Gilles Villeneuve      | Canada      | 13   | 2 |
+| Albert Park Grand Prix Circuit | Australia   | 10   | 5 |
+| Bahrain International Circuit  | Bahrain     | 7    | 5 |
+| Circuit Park Zandvoort         | Netherlands | 6    | 1 |
+| Shanghai International Circuit | China       | 5    | 1 |
+| Yas Marina Circuit             | UAE         | 3    | 4 |
+| Baku City Circuit              | Azerbaijan  | -7   | 1 |
+	
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229313484-e0b0e4ba-6b25-4818-8238-4216a6f46018.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The Mexican circuit is not surprisingly the most challenging in terms of overheating, resulting in the highest number of car retirements, with the Red Bull Ring following closely behind. Surprisingly, the Bahrain GP, which is situated close to sea level, also experiences a similar level of difficulty. This could be due to the high track temperatures caused by its geographic location. </p>
+<p align = "justify">
+As for the Baku City Circuit, it has a negative altitude value because it is situated below sea level. It was ignored when visualizing data as a logarithmic scale was used on the x-axis. </p>
+	
+## 10. Tableau Dashboards
+The Tableau Dashboards for each of the above results can be found here:
+
+## 11. Summary and Conclusion
+<p align = "justify">
+This project analyzed a comprehensive dataset of historical Formula One races, teams, drivers, and track conditions using SQL queries to gain insights into the sport and answer several research questions. This was done by using the 5-step data analysis process which has provided valuable insights into the performance of the Formula 1 teams and drivers.  </p>
+<p align = "justify">
+Overall, the report demonstrated the value of data analysis and SQL in gaining insights into the sport of Formula One and could be used to inform decision-making by stakeholders in the F1 ecosystem.  </p>
