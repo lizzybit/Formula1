@@ -16,7 +16,7 @@
 
 <p align = "justify"> The insights generated from this project could be useful for a wide range of stakeholders in the F1 ecosystem, including teams, drivers, sponsors, and fans. By understanding the factors that contribute to success in F1, teams and drivers can make data-driven decisions to improve their performance and gain a competitive edge. Sponsors could use the insights to identify potential opportunities for branding and marketing, while fans could gain a deeper appreciation and understanding of the sport they love.
     </p>
-
+<p align = "justify">The project was conducted using the framework of Data Analysis in 5 Steps. This framework is a widely recognized and comprehensive approach to analyzing data and provides a structured process for working with data. The five steps involved in this framework are: defining the problem, collecting data, preparing and cleaning the data, analyzing the data, and finally, interpreting the results. By following these steps, we can ensure that the data is properly managed, the analysis is reliable and accurate, and that the results obtained are valid and can be used to make informed decisions.	</p>
 <p align = "justify"> Overall, this project aims to provide valuable insights into the performance of F1 teams and drivers and advance our understanding of the factors that contribute to success in the sport. By leveraging the power of big data and SQL, we can unlock hidden patterns and trends in the data that can inform decision-making and enhance our appreciation of this thrilling sport.
   </p>
 
@@ -50,6 +50,21 @@ The dataset includes:
 11. **results.csv:** This file contains data on the results of each race.
 12. **seasons.csv:** This file contains data on each season of Formula 1.
 13. **status.csv:** This file contains information about the status codes that can be assigned to a driver's car during a race.
+
+
+## 4. Clean the Data in Excel
+<p align = "justify">
+The majority of the data cleaning in this project was done in Excel. This process of data wrangling was done in several steps:  </p>
+<p align = "justify">
+1. The first step was to import the data into Excel and ensure that all columns were properly labeled.  </p>
+<p align = "justify">
+2. The second step was to clean the date and time columns. The date was originally in the format of "dd/mm/yyyy" and the time was in "hh:mm". To make these columns more usable in SQL, the date format was changed to "yyyy-mm-dd" and the time was changed to "hh:mm:ss".  </p>
+<p align = "justify">
+3. The third step was to address any missing data. In this case, there were no missing values, but if there were, several techniques could be used such as replacing missing values with the mean or mode of the column, or deleting the rows with missing values altogether.  </p>
+<p align = "justify">
+4. The fourth step was to address any duplicate data. In this case, there were no duplicate rows, but if there were, Excel's remove duplicates function could be used to remove any duplicate rows.  </p>
+<p align = "justify">
+5. The fifth step was to check for and address any inconsistencies in the data. In this case, there were no inconsistencies found, but if there were, some techniques that could be used include data validation, using pivot tables to group data and identify inconsistencies, and cross-checking data with external sources.  </p>
 
 ## 5. Import the Data to SQL
 The next is step is to create tables and import the data into mySQL
