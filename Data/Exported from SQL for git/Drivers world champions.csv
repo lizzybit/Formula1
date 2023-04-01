@@ -1,0 +1,11 @@
+surname,"COUNT(DISTINCT r.year)"
+Schumacher,7
+Hamilton,7
+Fangio,5
+Prost,5
+Vettel,4
+Hill,4
+Senna,3
+Piquet,3
+Brabham,3
+Stewart,3

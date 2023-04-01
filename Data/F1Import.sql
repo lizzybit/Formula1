@@ -196,7 +196,6 @@ SELECT *
 FROM constructor_results;
 
 # 12: Results
-drop table results;
 CREATE TABLE results (
 	resultsId integer,
     raceId integer,
