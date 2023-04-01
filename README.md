@@ -497,7 +497,7 @@ The table and bar chart show the total points earned by the top 10 Formula 1 dri
 <p align = "justify">
 It is interesting to note that the points per race have increased over the years due to various rule changes, including the introduction of double points for the final race of the season in 2014. This means that drivers who have raced in more recent seasons have had more opportunities to earn points, and as a result, they may appear higher on this list than drivers from earlier eras.</p>
 
-### 6.3 Find the Highest Average Points Earned Per Race by Drivers Who Have Entered at Least 50 Races
+### 7.3 Find the Highest Average Points Earned Per Race by Drivers Who Have Entered at Least 50 Races
 ``` sql
 SELECT d.surname, ROUND(SUM(r.points)/COUNT(DISTINCT r.raceId),2) AS points_per_race
 FROM results r
@@ -534,6 +534,62 @@ The table and chart show the average number of points scored per race for each d
 It is notable that Lewis Hamilton has the highest average points per race among all the drivers, with a score of 13.96. This is a reflection of his consistent performance over the years, as well as his ability to win races and score podium finishes. Sebastian Vettel and Valtteri Bottas also have impressive scores of 10.33 and 8.85, respectively.</p>
 <p align = "justify">
 Interestingly, some of the greatest drivers in Formula 1 history, such as Alain Prost and Ayrton Senna, do not appear in the top 10 in terms of points per race. This is likely because they competed in an era where fewer points were awarded for each race, and there were fewer races overall in the season. It also highlights the importance of context when interpreting statistics in Formula 1.</p>
+
+### 7.4 Find the Driver Who has Won the Most World Championships
+Group drivers by nationality, year and surname to get the max points achieved every season
+``` sql
+SELECT d.surname, d.nationality, r.year, MAX(ds.points) AS total_points, MAX(ds.wins) AS total_wins
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+GROUP BY 1,2,3
+ORDER BY 4 DESC;
+```
+Use the the max points achieved every season to find the world champion for every year
+``` sql
+SELECT DISTINCT r.year, d.nationality, d.surname, ds.points
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+WHERE (r.year, ds.points) IN (
+	SELECT r.year, MAX(ds.points)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1
+)
+AND ds.points <> 0 
+ORDER BY 1 DESC;
+```
+Find the drivers with the most world championships
+``` sql
+SELECT d.surname, COUNT(DISTINCT r.year) AS total_championships
+FROM drivers d
+JOIN driver_standings ds
+ON d.driverId = ds.driverId
+JOIN races r
+ON ds.raceId = r.raceId
+WHERE (r.year, ds.points) IN (
+	SELECT r.year, MAX(ds.points)
+	FROM drivers d
+    JOIN driver_standings ds
+	ON d.driverId = ds.driverId
+	JOIN races r
+	ON ds.raceId = r.raceId
+	GROUP BY 1
+)
+AND ds.points <> 0
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+```
+
 
 
 
