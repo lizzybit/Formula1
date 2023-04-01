@@ -979,13 +979,11 @@ The Mexican circuit is not surprisingly the most challenging in terms of overhea
 <p align = "justify">
 As for the Baku City Circuit, it has a negative altitude value because it is situated below sea level. It was ignored when visualizing data as a logarithmic scale was used on the x-axis. </p>
 	
-	
-	
-	
-	
-	
-### Methods Implemented 
-This project contains implementations of scientific methods such as: 
-- Data Wrangling
-- Data Integration & Data Enrichment
-- Linear Regression
+## 10. Tableau Dashboards
+The Tableau Dashboards for each of the above results can be found here:
+
+## 11. Summary and Conclusion
+<p align = "justify">
+This project analyzed a comprehensive dataset of historical Formula One races, teams, drivers, and track conditions using SQL queries to gain insights into the sport and answer several research questions. This was done by using the 5-step data analysis process which has provided valuable insights into the performance of the Formula 1 teams and drivers.  </p>
+<p align = "justify">
+Overall, the report demonstrated the value of data analysis and SQL in gaining insights into the sport of Formula One and could be used to inform decision-making by stakeholders in the F1 ecosystem.  </p>
