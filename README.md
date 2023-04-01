@@ -881,6 +881,89 @@ The table lists the surnames of Formula One drivers who have achieved the fastes
 <p align = "justify">
 It is important to note that some of the circuits listed in the table are no longer in use, such as the Circuit de Nevers Magny-Cours in France and the Indianapolis Motor Speedway in the USA. This is why older drivers have achieved some of the fastest laps is not necessarily because they were better drivers, but because they had the opportunity to set those times on tracks that are no longer used in Formula One or have undergone significant changes over the years.</p>
 	
+
+## 9. Analyzing Data to Find Determine if Higher Altitude Cause More Engine Failures?
+<p align = "justify">
+At higher altitudes, air is less dense, which means that less air flows through the radiators and intake valves to cool the engine and brakes. Additionally, engines require oxygen to ignite combustion, and a lack of it can cause a decrease in performance. The main indicators of such conditions are overheating of transmission and engine components. The Autódromo Hermanos Rodríguez, where the Mexican GP takes place, is located at an elevation of 2227 meters above sea level, making it significantly higher than any other track on the F1 calendar. </p>
+
+### 9.1 Find the Total Failures and Altitudes for Various Circuits
+
+Merging circuits, race, results and status data:
+``` sql
+SELECT *
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId;
+```
+Exact columns needed, including rows with issues correlated with thin air in higher altitudes, setting the year to last 7 to include Mexico GP. Note '5' here means 'Engine' and '7' means 'Transmission':
+``` sql
+SELECT 
+    c.name, 
+    c.country, 
+    c.alt, 
+    r.year,
+    s.statusId,
+    s.status
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7);
+```
+	
+Find the total failures and the altitude of the track they occurred on:
+``` sql
+SELECT c.name, c.alt, COUNT(s.statusId) AS failures
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7)
+GROUP BY 1,2
+ORDER BY 3 DESC;
+```
+#### -- Result of Query
+| Autodromo Hermanos Rodriguez   | Mexico      | 2227 | 7 |
+|--------------------------------|-------------|------|---|
+| Autodromo Jose Carlos Pace     | Brazil      | 785  | 1 |
+| Red Bull Ring                  | Austria     | 678  | 4 |
+| Circuit Paul Ricard            | France      | 432  | 1 |
+| Circuit de Spa-Francorchamps   | Belgium     | 401  | 4 |
+| Hungaroring                    | Hungary     | 264  | 1 |
+| Autodromo Nazionale di Monza   | Italy       | 162  | 7 |
+| Circuit of the Americas        | USA         | 161  | 3 |
+| Hockenheimring                 | Germany     | 103  | 3 |
+| Suzuka Circuit                 | Japan       | 45   | 1 |
+| Sepang International Circuit   | Malaysia    | 18   | 2 |
+| Marina Bay Street Circuit      | Singapore   | 18   | 5 |
+| Circuit Gilles Villeneuve      | Canada      | 13   | 2 |
+| Albert Park Grand Prix Circuit | Australia   | 10   | 5 |
+| Bahrain International Circuit  | Bahrain     | 7    | 5 |
+| Circuit Park Zandvoort         | Netherlands | 6    | 1 |
+| Shanghai International Circuit | China       | 5    | 1 |
+| Yas Marina Circuit             | UAE         | 3    | 4 |
+| Baku City Circuit              | Azerbaijan  | -7   | 1 |
+	
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229313484-e0b0e4ba-6b25-4818-8238-4216a6f46018.png" width=60% height=60%> </p>
+
+#### -- Discussion of Data and Results
+<p align = "justify">
+The Mexican circuit is not surprisingly the most challenging in terms of overheating, resulting in the highest number of car retirements, with the Red Bull Ring following closely behind. Surprisingly, the Bahrain GP, which is situated close to sea level, also experiences a similar level of difficulty. This could be due to the high track temperatures caused by its geographic location. </p>
+<p align = "justify">
+As for the Baku City Circuit, it has a negative altitude value because it is situated below sea level. It was ignored when visualizing data as a logarithmic scale was used on the x-axis. </p>
+	
 	
 	
 	
