@@ -26,7 +26,8 @@ I have chosen the following reseach questions to focus on in this project:
 1. Which constructor teams are the most successful in terms of total races entered and total points earned?
 2. Which drivers are the most successful in terms of total points and wins?
 3. Which country produces the most world champions?
-4. Does higher altitude cause more engine failures in Formula 1 races?
+4. What is the track record for each circuits and who set that record?
+5. Does higher altitude cause more engine failures in Formula 1 races?
 
 ## 3. Dataset: Data Retrieval and Standard Descriptive Analysis
 
@@ -719,11 +720,130 @@ JOIN num_drivers nd
 ON nc.nationality = nd.nationality
 ORDER BY 4 DESC;
 ```
+#### -- Result of Query
+| nationality   | number_of_champions | number_of_drivers | win_percent |
+|---------------|---------------------|-------------------|-------------|
+| Finnish       | 4                   | 9                 | 44.44       |
+| Austrian      | 4                   | 15                | 26.67       |
+| Brazilian     | 8                   | 32                | 25          |
+| German        | 12                  | 50                | 24          |
+| Australian    | 4                   | 18                | 22.22       |
+| Argentine     | 5                   | 24                | 20.83       |
+| Spanish       | 2                   | 15                | 13.33       |
+| British       | 20                  | 165               | 12.12       |
+| Dutch         | 2                   | 18                | 11.11       |
+| New Zealander | 1                   | 9                 | 11.11       |
+| Canadian      | 1                   | 14                | 7.14        |
+| French        | 5                   | 73                | 6.85        |
+| South African | 1                   | 23                | 4.35        |
+| Italian       | 3                   | 99                | 3.03        |
+| American      | 2                   | 158               | 1.27        |
 
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229307757-260816cb-c091-4bec-afe2-ca6882b4ec0b.png" width=60% height=60%> </p>
 
+#### -- Discussion of Data and Results
+<p align = "justify">
+Here are some observations from the above table and chart: </p>
+<p align = "justify">
+- Finnish drivers have the highest win percentage at 44.44%, with 4 champions out of 9 drivers. </p>
+<p align = "justify">
+- British drivers have the most champions at 20, but a lower win percentage at 12.12% due to a larger number of drivers (165). </p>
+<p align = "justify">
+- Brazilian and German drivers also have high numbers of champions (8 and 12, respectively), with win percentages of 25% and 24%. </p>
+<p align = "justify">
+- French drivers have the largest number of drivers (73), but a lower win percentage at 6.85% due to only 5 champions. </p>
+<p align = "justify">
+- American drivers have the lowest win percentage at 1.27%, with only 2 champions out of 158 drivers. </p>
 
+## 8. Analyzing Data to Find the Track Record for Each Circuit and Which Driver Has the Most Fastest Laps
+### 8.1 Find the Track Record for Each Circuit
+Merge and extract important columns from different tables:
+``` sql
+SELECT * 
+FROM circuits c
+JOIN races r
+ON c.circuitId = r.circuitId
+JOIN results re
+ON r.raceId = re.raceId
+JOIN drivers d
+ON re.driverId = d.driverId;
+```
+Find the track record for each circuit:
+``` sql
+WITH lap_records AS (
+    SELECT c.circuitId, MIN(re.fastestLapTime) AS lap_record
+    FROM circuits c
+    JOIN races r ON c.circuitId = r.circuitId
+    JOIN results re ON r.raceId = re.raceId
+    WHERE re.fastestLapTime IS NOT NULL AND re.fastestLapTime <> 0 
+    GROUP BY c.circuitId
+)
+SELECT c.name, c.country, d.surname, lr.lap_record, r.year
+FROM circuits c
+JOIN races r ON c.circuitId = r.circuitId
+JOIN results re ON r.raceId = re.raceId
+JOIN drivers d ON re.driverId = d.driverId
+JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
+ORDER BY 2;
+```
+#### -- Result of Query
+| name                                 | country      | surname       | lap_record | year |
+|--------------------------------------|--------------|---------------|------------|------|
+| Albert Park Grand Prix Circuit       | Australia    | Leclerc       | 80.26      | 2022 |
+| Red Bull Ring                        | Austria      | Sainz         | 65.619     | 2020 |
+| Baku City Circuit                    | Azerbaijan   | Leclerc       | 103.009    | 2019 |
+| Bahrain International Circuit        | Bahrain      | Russell       | 55.404     | 2020 |
+| Circuit de Spa-Francorchamps         | Belgium      | R√§ikk√∂nen   | 105.108    | 2004 |
+| Autodromo Jose Carlos Pace           | Brazil       | Bottas        | 70.54      | 2018 |
+| Circuit Gilles Villeneuve            | Canada       | Bottas        | 73.078     | 2019 |
+| Shanghai International Circuit       | China        | Schumacher    | 92.238     | 2004 |
+| Circuit de Nevers Magny-Cours        | France       | Schumacher    | 75.377     | 2004 |
+| Circuit Paul Ricard                  | France       | Vettel        | 92.74      | 2019 |
+| Nurburgring                          | Germany      | Verstappen    | 88.139     | 2020 |
+| Hockenheimring                       | Germany      | R√§ikk√∂nen   | 73.78      | 2004 |
+| Hungaroring                          | Hungary      | Hamilton      | 76.627     | 2020 |
+| Buddh International Circuit          | India        | Vettel        | 87.249     | 2011 |
+| Autodromo Internazionale del Mugello | Italy        | Hamilton      | 78.833     | 2020 |
+| Autodromo Enzo e Dino Ferrari        | Italy        | Hamilton      | 75.484     | 2020 |
+| Autodromo Nazionale di Monza         | Italy        | Barrichello   | 81.046     | 2004 |
+| Suzuka Circuit                       | Japan        | Hamilton      | 90.983     | 2019 |
+| Fuji Speedway                        | Japan        | Massa         | 78.426     | 2008 |
+| Korean International Circuit         | Korea        | Vettel        | 99.605     | 2011 |
+| Sepang International Circuit         | Malaysia     | Vettel        | 94.08      | 2017 |
+| Autodromo Hermanos Rodriguez         | Mexico       | Bottas        | 77.774     | 2021 |
+| Circuit de Monaco                    | Monaco       | Hamilton      | 72.909     | 2021 |
+| Circuit Park Zandvoort               | Netherlands  | Hamilton      | 71.097     | 2021 |
+| Autodromo Internacional do Algarve   | Portugal     | Hamilton      | 78.75      | 2020 |
+| Losail International Circuit         | Qatar        | Verstappen    | 83.196     | 2021 |
+| Sochi Autodrom                       | Russia       | Hamilton      | 95.761     | 2019 |
+| Jeddah Corniche Circuit              | Saudi Arabia | Hamilton      | 90.734     | 2021 |
+| Marina Bay Street Circuit            | Singapore    | Magnussen     | 101.905    | 2018 |
+| Circuit de Barcelona-Catalunya       | Spain        | Fisichella    | 75.641     | 2005 |
+| Valencia Street Circuit              | Spain        | Glock         | 98.683     | 2009 |
+| Istanbul Park                        | Turkey       | Pablo Montoya | 84.77      | 2005 |
+| Yas Marina Circuit                   | UAE          | Verstappen    | 86.103     | 2021 |
+| Silverstone Circuit                  | UK           | Schumacher    | 78.739     | 2004 |
+| Miami International Autodrome        | USA          | Verstappen    | 91.361     | 2022 |
+| Indianapolis Motor Speedway          | USA          | Barrichello   | 70.399     | 2004 |
+| Circuit of the Americas              | USA          | Leclerc       | 96.169     | 2019 |
 
+#### -- Visualization of Data
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/128324837/229307757-260816cb-c091-4bec-afe2-ca6882b4ec0b.png" width=60% height=60%> </p>
 
+#### -- Discussion of Data and Results
+<p align = "justify">
+	
+	
+	
+	
+	
+	
+	
+	
+	
 ### Methods Implemented 
 This project contains implementations of scientific methods such as: 
 - Data Wrangling
