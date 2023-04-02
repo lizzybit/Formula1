@@ -234,7 +234,7 @@ ON s.statusId = re.statusId
 WHERE r.year >=2015 AND s.statusId IN (5, 7);
 
 -- Looking at the total failures and the altitude of the track they occurred on
-SELECT c.name, c.alt, COUNT(s.statusId) AS failures
+SELECT c.name, c.country, c.alt, COUNT(s.statusId) AS failures
 FROM circuits c
 JOIN races r
 ON r.circuitId = c.circuitId
@@ -243,7 +243,7 @@ ON r.raceId = re.raceId
 JOIN status s
 ON s.statusId = re.statusId
 WHERE r.year >=2015 AND s.statusId IN (5, 7)
-GROUP BY 1,2
+GROUP BY 1,2,3
 ORDER BY 3 DESC;
 
 ## Question 4: Who has the fastest lap time in every circuit?
