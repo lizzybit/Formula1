@@ -1,3 +1,4 @@
+-------------------------------------------------------------------------------------------------------------------------
 ## Question 1: Which teams are the most successful constructors ##
 
 -- Join results table and constructors table
@@ -34,7 +35,9 @@ HAVING COUNT(DISTINCT r.raceId) >=100
 ORDER BY 2 DESC
 LIMIT 10;
 
+-------------------------------------------------------------------------------------------------------------------------
 ## Question 2: Which drivers are the most successful ##
+
 -- Join results table and drivers table
 SELECT *
 FROM results r
@@ -68,7 +71,6 @@ GROUP BY 1
 HAVING COUNT(DISTINCT r.raceId) >=50
 ORDER BY 2 DESC
 LIMIT 10;
-
 
 -- Merging drivers, driver standings and race data 
 SELECT *
@@ -128,9 +130,8 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
 
-
-
-
+-------------------------------------------------------------------------------------------------------------------------
+## Question 3: Which countries are the most successful in F1?##
 -- Looking at the number of drivers from each country
 SELECT nationality, COUNT(nationality) AS number_of_drivers
 FROM drivers
@@ -205,47 +206,7 @@ JOIN num_drivers nd
 ON nc.nationality = nd.nationality
 ORDER BY 4 DESC;
 
-## Question 3: Does higher altitude cause more engine failures?
--- Merging circuits, race, results and status data 
-SELECT *
-FROM circuits c
-JOIN races r
-ON r.circuitId = c.circuitId
-JOIN results re 
-ON r.raceId = re.raceId
-JOIN status s
-ON s.statusId = re.statusId;
-
--- Exacting columns needed, including rows with issues correlated with thin air in higher altitudes, setting the year to last 7 to include Mexico GP
-SELECT 
-    c.name, 
-    c.country, 
-    c.alt, 
-    r.year,
-    s.statusId,
-    s.status
-FROM circuits c
-JOIN races r
-ON r.circuitId = c.circuitId
-JOIN results re 
-ON r.raceId = re.raceId
-JOIN status s
-ON s.statusId = re.statusId
-WHERE r.year >=2015 AND s.statusId IN (5, 7);
-
--- Looking at the total failures and the altitude of the track they occurred on
-SELECT c.name, c.country, c.alt, COUNT(s.statusId) AS failures
-FROM circuits c
-JOIN races r
-ON r.circuitId = c.circuitId
-JOIN results re 
-ON r.raceId = re.raceId
-JOIN status s
-ON s.statusId = re.statusId
-WHERE r.year >=2015 AND s.statusId IN (5, 7)
-GROUP BY 1,2,3
-ORDER BY 3 DESC;
-
+-------------------------------------------------------------------------------------------------------------------------
 ## Question 4: Who has the fastest lap time in every circuit?
 -- Merging and extraction of important columns from different tables
 SELECT * 
@@ -289,6 +250,48 @@ JOIN drivers d ON re.driverId = d.driverId
 JOIN lap_records lr ON c.circuitId = lr.circuitId AND re.fastestLapTime = lr.lap_record
 GROUP BY 1
 ORDER BY 2 DESC;
+
+-------------------------------------------------------------------------------------------------------------------------
+## Question 4: Does higher altitude cause more engine failures?
+-- Merging circuits, race, results and status data 
+SELECT *
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId;
+
+-- Exacting columns needed, including rows with issues correlated with thin air in higher altitudes, setting the year to last 7 to include Mexico GP
+SELECT 
+    c.name, 
+    c.country, 
+    c.alt, 
+    r.year,
+    s.statusId,
+    s.status
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7);
+
+-- Looking at the total failures and the altitude of the track they occurred on
+SELECT c.name, c.country, c.alt, COUNT(s.statusId) AS failures
+FROM circuits c
+JOIN races r
+ON r.circuitId = c.circuitId
+JOIN results re 
+ON r.raceId = re.raceId
+JOIN status s
+ON s.statusId = re.statusId
+WHERE r.year >=2015 AND s.statusId IN (5, 7)
+GROUP BY 1,2,3
+ORDER BY 3 DESC;
 
 
 
