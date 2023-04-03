@@ -57,7 +57,7 @@ I have chosen the following reseach questions to focus on in this project:
 4. What is the track record for each circuits and who set that record?
 5. Does higher altitude cause more engine failures in Formula 1 races?
 
-## 3. Data Retrieval and Standard Descriptive Analysis
+## 3. Data Retrieval
 
 The dataset used in the project is available at: https://www.kaggle.com/cjgdev/formula-1-race-data-19502017
 
