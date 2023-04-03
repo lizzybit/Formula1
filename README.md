@@ -79,6 +79,7 @@ The dataset includes:
 12. **seasons.csv:** This file contains data on each season of Formula 1.
 13. **status.csv:** This file contains information about the status codes that can be assigned to a driver's car during a race.
 
+The data in this projects and the license CC0: Public Domain. This means that it is released to the public domain, and anyone can use, modify, or distribute it for any purpose, including commercial purposes, without any restrictions or limitations.
 
 ## 4. Clean the Data in Excel
 <p align = "justify">
