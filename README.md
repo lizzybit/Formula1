@@ -59,7 +59,7 @@ I have chosen the following reseach questions to focus on in this project:
 
 ## 3. Data Retrieval and Standard Descriptive Analysis
 
-The dataset used in the project is available at: [https://www.kaggle.com/cjgdev/formula-1-race-data-19502017](https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020)
+The dataset used in the project is available at: [https://www.kaggle.com/cjgdev/formula-1-race-data-19502017]
 
 It contains race entries from 1950 to present. 
 
@@ -1009,7 +1009,7 @@ The Mexican circuit is not surprisingly the most challenging in terms of overhea
 As for the Baku City Circuit, it has a negative altitude value because it is situated below sea level. It was ignored when visualizing data as a logarithmic scale was used on the x-axis. </p>
 	
 ## 10. Tableau Dashboards
-The Tableau Dashboards for each of the above results can be found here:
+The Tableau Dashboards for each of the above results can be found here: [https://public.tableau.com/app/profile/elizabeth.storey]
 
 ## 11. Summary and Conclusion
 <p align = "justify">
