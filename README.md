@@ -1009,7 +1009,7 @@ The Mexican circuit is not surprisingly the most challenging in terms of overhea
 As for the Baku City Circuit, it has a negative altitude value because it is situated below sea level. It was ignored when visualizing data as a logarithmic scale was used on the x-axis. </p>
 	
 ## 10. Tableau Dashboards
-The Tableau Dashboards for each of the above results can be found here: https://public.tableau.com/app/profile/elizabeth.storey
+The Tableau Dashboards for each of the above results can be found here: https://public.tableau.com/app/profile/liz.s
 
 ## 11. Summary and Conclusion
 <p align = "justify">
