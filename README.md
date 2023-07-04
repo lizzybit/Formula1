@@ -2,7 +2,7 @@
   <img src="https://user-images.githubusercontent.com/128324837/229282750-acca6c03-96d2-4c50-add9-df97ae2e7f77.png" width=60% height=60%>
 </p>
 
-# Formula 1 Exploratory Data Analysis Using SQL
+# Formula 1 Exploratory Data Analysis Using Excel and SQL
 
 
 ## Table of Contents
